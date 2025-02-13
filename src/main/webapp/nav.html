@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">
+    <script src="./js/navFunc.js"></script>
+</head>
+<body>
+    <div id="top">
+        <span id="title">Kokoro's Blog</span>
+        <span id="nav">
+            <button class="nav_button" id="homePage"><p class="button_content">首页</p></button>     <!--此处交由js处理链接跳转-->    
+            <button class="nav_button" id="posts"><p class="button_content">文章</p></button>
+            <button class="nav_button" id="about"><p class="button_content">关于</p></button>
+        </span>
+        <span id="night_mode">
+            <button id="night_mode_button"></button>
+            <script>
+                const night_mode_button = document.getElementById('night_mode_button');
+                const night_mode_block = document.getElementById('night_mode');
+
+                night_mode_block.addEventListener('click', function() {
+                    night_mode.classList.toggle('active');
+                    night_mode_button.classList.toggle('active');
+                });
+            </script>
+        </span>
+    </div>
+    <iframe src="home.html" id="hello"></iframe>   <!--内嵌首页框架-->
+    <script>    
+        let currentFrame = document.getElementById("hello");
+        /*处理首页按钮点击*/
+        const homePageButton = document.getElementById("homePage");
+
+        homePageButton.addEventListener('click', function() {
+            jumpToHome(currentFrame);   /*要在外面套一层function()回调, 直接写jumpToHome()会在加载的时候就运行一遍。*/
+        })
+
+        /*处理文章点击按钮*/
+        const postButton = document.getElementById("posts");
+
+        postButton.addEventListener('click', function() {
+            jumpToPosts(currentFrame);
+        })
+    </script>
+</body>
+</html>

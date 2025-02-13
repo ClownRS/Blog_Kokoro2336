@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {    /*要同时给html和body设置，html中还存在其它占位元素*/
+    height: 100%;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+}
+
+body {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+::-webkit-scrollbar {   /*使用伪类选择器实现滚动效果，但隐藏滚动条*/
+    display: none;
+}
+
+h3 {
+    text-align: center;
+    overflow: hidden;
+}
+
+hr {    /*设置下划线样式*/
+    margin: 10px;
+    border: none;
+    width: 90%;
+    padding: 1px;
+    background-color: rgb(154, 154, 154);
+    border-radius: 1px;
+}
+
+.blocks {
+    margin: 20px;
+    border-radius: 10px;
+    animation: slideInFromBottom 2s ease;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);   /*设置滑入*/
+        opacity: 0; /*设置淡入*/
+    } to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: x-large;
+}
+
+.post_title {
+    margin: 30px 20px 30px 20px;
+    content: 20px;
+    /* word-wrap: break-word;
+    overflow-wrap: break-word; */
+    font-weight: 450;
+}
+
+#posts_list {
+    display: inline-block;
+    background-color: rgb(255, 237, 240, 0.7);
+    width: 20%;
+    height: 95%;
+    overflow-x: hidden;
+}
+
+#post_detail_block {
+    display: flex;
+    flex-direction: column;
+    align-items: space-evenly;
+    justify-content: center;
+    width: 70%;
+    height: 95%;
+    background-color: rgb(255, 237, 240, 0.7);
+}
+
+#title_detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 237, 240, 0.9);
+    width: 95%;
+    height: fit-content;
+    padding: 10px;
+    text-align: center;
+}
+
+#post_content {
+    display: inline-block;
+    width: 95%;
+    height:auto;
+    margin-top: 0;
+    padding: 10px 5px 10px 5px;
+    background-color: rgb(255, 237, 240, 0.9);
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: left;
+}
