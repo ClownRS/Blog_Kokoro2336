@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
-body {
-    background-image: url(../img/fufu.jpg);
-    background-size: cover; /*使图片尽可能覆盖整个页面*/
-    background-position: top;    /*使图片上对齐*/
-    background-attachment: fixed;   /*使背景固定，不随着滚动条移动*/
-    height: fit-content;
+html, body {
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
     overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
+}
+    
+body {
+    width: 100vw;
+    height: 100vh;
 }
 
 ::-webkit-scrollbar {   /*使用伪类选择器实现滚动效果，但隐藏滚动条*/
@@ -25,7 +25,6 @@ iframe {    /*设置内嵌框架*/
 }
 
 .nav_button {
-    color: rgb(0, 0, 0);
     font-size:x-large;
     border: none;
     display:flex;
@@ -33,8 +32,8 @@ iframe {    /*设置内嵌框架*/
     align-items: center;    /*调整竖直方向排列*/
     background-color: transparent;
     border-radius: 10px;    /*添加圆角*/
-    width: 7vw;
-    height: 5vh;
+    width: 20%;
+    height: 60%;
     box-shadow: 
         3px 3px 5px -2px rgb(131, 113, 121),
         2px 1.5px 3px -2px rgb(26, 26, 26),
@@ -66,10 +65,10 @@ iframe {    /*设置内嵌框架*/
     align-items: center;
     border-width: 0 0 0 1px;    
     text-align: center;
-    padding: 20px;
+    padding: 10px;
+    height: 100%;
     font-weight: bolder;
     font-size: large;
-    box-shadow: 0px 1px 10px;
     background-attachment: fixed;
     z-index: 1000;  /*设置竖坐标，使顶栏位于所有元素上方*/
 }
@@ -89,9 +88,10 @@ iframe {    /*设置内嵌框架*/
 
 #nav {
     width: 40%;
+    height: 100%;
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
 }
 
 #night_mode {

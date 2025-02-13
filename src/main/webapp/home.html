@@ -10,15 +10,12 @@
     <!--导入marked以解析markdown-->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>    
     <script src="./js/homeFunc.js"></script>
-    <style>
-        iframe {    /*设置内嵌框架*/
-            width: 100vw;    /*设置满屏*/
-            height: 100vh;
-            border: none;   /*去掉边框*/ 
-        }
-    </style>
 </head>
 <body>
+
+    <div id="nav_block">
+        <iframe src="nav.html" id="nav"></iframe>   <!--内嵌首页框架-->
+    </div>
     <div id="hello">Kokoro dayo~</div>
     <div id="Intro" class="blocks">
         <p id="Intro_word">

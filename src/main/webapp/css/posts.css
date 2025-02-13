@@ -4,14 +4,30 @@
     box-sizing: border-box;
 }
 
-html, body {    /*要同时给html和body设置，html中还存在其它占位元素*/
-    height: 100%;
+html {    /*要同时给html和body设置，html中还存在其它占位元素*/
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
 }
 
 body {
-    display: flex;
-    justify-content: space-evenly;
+    height: 100%;
+    background-image: url(../img/fufu.jpg);
+    background-size: cover; /*使图片尽可能覆盖整个页面*/
+    background-position: top;    /*使图片上对齐*/
+    background-attachment: fixed;   /*使背景固定，不随着滚动条移动*/
+    height: fit-content;
+    overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
+}
+
+#nav_block {
+    height: 10vh;
+    width: 100vw;
+    box-shadow: 0px 1px 10px rgb(36,36, 36);
+}
+
+#nav {
+    border: none;
+    height: 100%;
+    width: 100%;
 }
 
 ::-webkit-scrollbar {   /*使用伪类选择器实现滚动效果，但隐藏滚动条*/
@@ -33,6 +49,7 @@ hr {    /*设置下划线样式*/
 }
 
 .blocks {
+    display: block;
     margin: 20px;
     border-radius: 10px;
     animation: slideInFromBottom 2s ease;

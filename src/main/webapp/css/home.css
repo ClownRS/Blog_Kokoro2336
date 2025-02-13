@@ -12,6 +12,13 @@ html {
 }
 
 body {
+    background-image: url(../img/fufu.jpg);
+    background-size: cover; /*使图片尽可能覆盖整个页面*/
+    background-position: top;    /*使图片上对齐*/
+    background-attachment: fixed;   /*使背景固定，不随着滚动条移动*/
+    height: fit-content;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+    overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
     width: fit-content;
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
 }
@@ -34,6 +41,18 @@ hr {    /*设置下划线样式*/
 }
 
 ul {    /*设置列表样式*/
+}
+
+#nav_block {
+    height: 10vh;
+    width: 100vw;
+    box-shadow: 0px 1px 10px rgb(36, 36, 36);
+}
+
+#nav {
+    border: none;
+    height: 100%;
+    width: 100%;
 }
 
 #hello {

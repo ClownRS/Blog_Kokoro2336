@@ -30,22 +30,21 @@
             </script>
         </span>
     </div>
-    <iframe src="home.html" id="hello"></iframe>   <!--内嵌首页框架-->
-    <script>    
-        let currentFrame = document.getElementById("hello");
-        /*处理首页按钮点击*/
-        const homePageButton = document.getElementById("homePage");
+    <script>
+        // let currentFrame = document.getElementById("hello");
+        // /*处理首页按钮点击*/
+        // const homePageButton = document.getElementById("homePage");
 
-        homePageButton.addEventListener('click', function() {
-            jumpToHome(currentFrame);   /*要在外面套一层function()回调, 直接写jumpToHome()会在加载的时候就运行一遍。*/
-        })
+        // homePageButton.addEventListener('click', function() {
+        //     jumpToHome(currentFrame);   /*要在外面套一层function()回调, 直接写jumpToHome()会在加载的时候就运行一遍。*/
+        // })
 
-        /*处理文章点击按钮*/
-        const postButton = document.getElementById("posts");
+        // /*处理文章点击按钮*/
+        // const postButton = document.getElementById("posts");
 
-        postButton.addEventListener('click', function() {
-            jumpToPosts(currentFrame);
-        })
+        // postButton.addEventListener('click', function() {
+        //     jumpToPosts(currentFrame);
+        // })
     </script>
 </body>
 </html>
