@@ -35,94 +35,20 @@
             <hr>
             <div class="post_message">
                 <ul>
-                    <li><i>Date: </i></li>
+                    <li>
+                        <i>Date: </i>
+                        <i>lastModified: </i>
+                    </li>
                 </ul>
             </div>
             <div class="post_content_block">
                 <p class="post_content">
                     dfdfdsfdsfsdfsvcdfdfdfdfbnghghghghgsvsdfdsfdsfdsdfdfdsfdfd
                     fdfdfcvcvgfhffgfgdfdfs
-                    fdsfsfsdfdefdf
-                    dfdfdfdf
-                    dfdfdfdf
-                    dfdfhghgg
+                    
                 </p>
             </div>
         </div>
-        <div class="post_display">
-            <a herf="http://127.0.0.1:5500/home.html"></a> <!--此处填写对应文章的地址-->
-            <h3 class="post_title">测试</h3>
-            <hr>
-            <div class="post_message">
-                <ul>
-                    <li><i>Date: </i></li>
-                </ul>
-            </div>
-            <div class="post_content_block">
-                <p class="post_content">
-                    dfdfdsfdsfsdfsvcdfdfdfdfbnghghghghgsvsdfdsfdsfdsdfdfdsfdfd
-                    fdfdfcvcvgfhffgfgdfdfs
-                    fdsfsfsdfdefdf
-                    dfdfdfdf
-                    dfdfdfdf
-                    dfdfhghgg
-                </p>
-            </div>
-        </div>
-        <div class="post_display">
-            <a herf="http://127.0.0.1:5500/home.html"></a> <!--此处填写对应文章的地址-->
-            <h3 class="post_title">测试</h3>
-            <hr>
-            <div class="post_message">
-                <ul>
-                    <li><i>Date: </i></li>
-                </ul>
-            </div>
-            <div class="post_content_block">
-                <p class="post_content">
-                    dfdfdsfdsfsdfsvcdfdfdfdfbnghghghghgsvsdfdsfdsfdsdfdfdsfdfd
-                    fdfdfcvcvgfhffgfgdfdfs
-                    fdsfsfsdfdefdf
-                    dfdfdfdf
-                    dfdfdfdf
-                    dfdfhghgg
-                </p>
-            </div>
-        </div>
-        <div class="post_display">
-            <a herf="http://127.0.0.1:5500/home.html"></a> <!--此处填写对应文章的地址-->
-            <h3 class="post_title">测试</h3>
-            <hr>
-            <div class="post_message">
-                <ul>
-                    <li><i>Date: </i></li>
-                </ul>
-            </div>
-            <div class="post_content_block">
-                <p class="post_content">
-                    dfdfdsfdsfsdfsvcdfdfdfdfbnghghghghgsvsdfdsfdsfdsdfdfdsfdfd
-                    fdfdfcvcvgfhffgfgdfdfs
-                    fdsfsfsdfdefdf
-                    dfdfdfdf
-                    dfdfdfdf
-                    dfdfhghgg
-                </p>
-            </div>
-        </div>
-        <script>    <!--负责点击文章的跳转-->
-            const postsDisplay = document.currentScript.parentNode;
-            postsDisplay.addEventListener('click', function(event) {
-                /*事件委托*/
-                let posts = [];
-                posts = postsDisplay.getElementsByClassName("post_display");
-                for (i = 0; i < posts.length; i++) {
-                    if (posts[i].contains(event.target)) {
-                        jumpToPost(posts[i]);
-                        break;
-                    };
-                }
-            });
-        </script>
     </div>
 </body>
 </html>

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./css/nav.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">
-    <script src="./js/navFunc.js"></script>
 </head>
 <body>
     <div id="top">
@@ -19,32 +18,8 @@
         </span>
         <span id="night_mode">
             <button id="night_mode_button"></button>
-            <script>
-                const night_mode_button = document.getElementById('night_mode_button');
-                const night_mode_block = document.getElementById('night_mode');
-
-                night_mode_block.addEventListener('click', function() {
-                    night_mode.classList.toggle('active');
-                    night_mode_button.classList.toggle('active');
-                });
-            </script>
         </span>
     </div>
-    <script>
-        // let currentFrame = document.getElementById("hello");
-        // /*处理首页按钮点击*/
-        // const homePageButton = document.getElementById("homePage");
-
-        // homePageButton.addEventListener('click', function() {
-        //     jumpToHome(currentFrame);   /*要在外面套一层function()回调, 直接写jumpToHome()会在加载的时候就运行一遍。*/
-        // })
-
-        // /*处理文章点击按钮*/
-        // const postButton = document.getElementById("posts");
-
-        // postButton.addEventListener('click', function() {
-        //     jumpToPosts(currentFrame);
-        // })
-    </script>
+    <script src="./js/navFunc.js"></script>
 </body>
 </html>
