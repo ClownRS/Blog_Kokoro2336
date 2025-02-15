@@ -23,21 +23,11 @@ public class HomeController {
         this.homeService = homeService;
     }
 
+    /**
+     * 在页面跳转时负责返回post列表*/
     @RequestMapping("/jump")
-    public String jump() {
-        System.out.println("giao");
-        List<Post> postList = homeService.getPostList();
-
-        //转为json格式
-        String postListJSON = null;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            postListJSON = mapper.writeValueAsString(postList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return postListJSON;
+    public List<Post> getPostList() throws IOException {
+        return homeService.getPostList();
     }
 
 }

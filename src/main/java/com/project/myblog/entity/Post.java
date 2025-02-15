@@ -1,12 +1,13 @@
 package com.project.myblog.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Post {
     private int id;
     private String title;
-    private Date postDate;
-    private Date lastModified;
+    private Timestamp postDate;
+    private Timestamp lastModified;
     private String content;
 
     public int getId() {
@@ -25,19 +26,19 @@ public class Post {
         this.title = title;
     }
 
-    public Date getPostDate() {
+    public Timestamp getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(Timestamp postDate) {
         this.postDate = postDate;
     }
 
-    public Date getLastModified() {
+    public Timestamp getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(Timestamp lastModified) {
         this.lastModified = lastModified;
     }
 
