@@ -19,6 +19,6 @@ public class HomeDao {
     }
 
     public List<Post> getPostList() {
-        return jdbcTemplate.query("SELECT * FROM posts", new BeanPropertyRowMapper<Post>());
+        return jdbcTemplate.query("SELECT * FROM posts", new BeanPropertyRowMapper<>(Post.class));
     }
 }

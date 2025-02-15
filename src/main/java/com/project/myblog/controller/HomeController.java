@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.myblog.entity.Post;
 import com.project.myblog.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class HomeController {
 
     /**
      * 在页面跳转时负责返回post列表*/
-    @RequestMapping("/jump")
+    @RequestMapping("/load")
     public List<Post> getPostList() throws IOException {
         return homeService.getPostList();
     }
