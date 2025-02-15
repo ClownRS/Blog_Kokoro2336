@@ -11,14 +11,14 @@ import java.util.List;
 @Repository("homeDao")
 public class HomeDao {
 
-//    @Autowired
-//    private JdbcTemplate jdbcTemplate;
-//
-//    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-//        this.jdbcTemplate = jdbcTemplate;
-//    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Post> getPostList() {
-        return null;//jdbcTemplate.query("select * from posts", new BeanPropertyRowMapper<Post>());
+        return jdbcTemplate.query("select * from posts", new BeanPropertyRowMapper<Post>());
     }
 }
