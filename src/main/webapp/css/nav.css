@@ -94,6 +94,17 @@ iframe {    /*设置内嵌框架*/
     align-items: center;
 }
 
+@media (max-width: 800px) {
+    #nav {
+        display: none;
+    }
+
+    #title {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 #night_mode {
     width: 50px;
     height: 25px;
@@ -147,6 +158,8 @@ a {
     color: transparent;
     background: linear-gradient(-45deg, rgb(176, 79, 148), rgb(86, 19, 86));   /*设置渐变色，不是background-color.*/
     -webkit-background-clip: text;
+    width: 80%;
+    height: 80%;
 }
 
 /* #blog_list {

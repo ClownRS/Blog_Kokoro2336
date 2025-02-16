@@ -44,7 +44,7 @@ ul {    /*设置列表样式*/
 }
 
 #nav_block {
-    height: 10vh;
+    height: 84px;
     width: 100vw;
     box-shadow: 0px 1px 10px rgb(36, 36, 36);
 }
@@ -81,18 +81,29 @@ ul {    /*设置列表样式*/
 
 .blocks {
     padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
     border-radius: 10px;
-    top: 40vh;
     width: 90%;
     height: fit-content;
     backdrop-filter: blur(50px);
     animation: slideInFromBottom 1.5s ease;
 }
 
+#Intro_and_posts {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
 #Intro {
-    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+@media (max-width: 800px) { /*当Intro块的宽度小于800px时隐藏元素*/
+    #Intro {
+        display: none;
+    }
 }
 
 #Intro_word {
@@ -117,28 +128,28 @@ ul {    /*设置列表样式*/
     backdrop-filter: blur(80px);
 }
 
-#posts_display_homePage {
-    position:relative;
-    background-color: rgb(255, 237, 240, 0.5);
-    top: 20px;
+#posts_display {
+    background: transparent;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: space-around;
+    width: 69%;
+}
+
+@media(max-width: 800px) {
+    #posts_display {
+        width: 95%;
+    }
 }
 
 .post_display {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgb(255, 237, 240, 0.7);    /*直接再rgb后添加百分比透明度即可设置*/
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    height: 200px;
     border-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-left: 20px;
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 
@@ -148,7 +159,6 @@ ul {    /*设置列表样式*/
 }
 
 .post_display:hover {
-    background-color: rgba(218, 200, 203, 0.7);
     transform: scale(1.05);
 }
 
