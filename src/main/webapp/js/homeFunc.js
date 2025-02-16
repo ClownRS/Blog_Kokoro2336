@@ -45,7 +45,10 @@ function showPostList(postList) {
         lastModified.innerHTML = "Last Modified:" + (postList[i].lastModified === null?"":new Date(postList[i].lastModified));
         postContent.innerHTML = postList[i].content;
     }
-};
+
+    //删除掉模板元素（第一个）
+    posts_display_homePage.removeChild(document.getElementsByClassName("post_display")[0]);
+}
 
 /*等待DOM全部加载完毕以后，再插入数据*/
 document.addEventListener("DOMContentLoaded", function() {
