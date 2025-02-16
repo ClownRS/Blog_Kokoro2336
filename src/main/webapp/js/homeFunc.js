@@ -17,14 +17,15 @@ function getPostList() {
     .then(() => {   //记得外面套一层回调
         showPostList(postList);
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+        console.log(error);
+    });
 }  
 
 function showPostList(postList) {
     //获取post_display and posts_display_homePage元素
     let post_display = document.getElementsByClassName("post_display")[0];
     let posts_display_homePage = post_display.parentNode;
-    console.log(postList);
     let cloneNode;
     //展示post
     for (i = 0; i < postList.length; i++) {
