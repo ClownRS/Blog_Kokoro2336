@@ -41,13 +41,25 @@ function showPostList(postList) {
         postLink.removeAttribute("herf");
         postLink.setAttribute("href", url + "/posts.html/" + postList[i].id);
         postTitle.innerHTML = postList[i].title;
-        postDate.innerHTML = "Date:" + new Date(postList[i].postDate);
-        lastModified.innerHTML = "Last Modified:" + (postList[i].lastModified === null?"":new Date(postList[i].lastModified));
+        postDate.innerHTML = "Date:" + formatTimestamp(postList[i].postDate);
+        lastModified.innerHTML = "Last Modified:" + (postList[i].lastModified === null?"":formatTimestamp(postList[i].lastModified));
         postContent.innerHTML = postList[i].content;
     }
 
     //删除掉模板元素（第一个）
     posts_display.removeChild(document.getElementsByClassName("post_display")[0]);
+}
+
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // 月份从0开始，所以+1
+  const day = ('0' + date.getDate()).slice(-2);
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const seconds = ('0' + date.getSeconds()).slice(-2);
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 /*等待DOM全部加载完毕以后，再插入数据*/

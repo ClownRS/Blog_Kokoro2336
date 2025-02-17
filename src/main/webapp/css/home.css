@@ -8,7 +8,8 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: rgb(41, 41, 41);
+    width: 100vw;
+    height: 100vh;
 }
 
 body {
@@ -21,6 +22,8 @@ body {
     overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
     width: fit-content;
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+    width: 100vw;
+    height: 100vh;
 }
 
 ::-webkit-scrollbar {   /*使用伪类选择器实现滚动效果，但隐藏滚动条*/
@@ -38,9 +41,6 @@ hr {    /*设置下划线样式*/
     padding: 1px;
     background-color: rgb(154, 154, 154);
     border-radius: 1px;
-}
-
-ul {    /*设置列表样式*/
 }
 
 #nav_block {
@@ -92,12 +92,15 @@ ul {    /*设置列表样式*/
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
+    width: 100vw;   /*由于display为flex，而子元素全部使用百分比设置宽度，所以当文本溢出时，可能整个intro_and_posts会变宽。因此直接使用vw限定宽度即可。*/
+    height: fit-content;
 }
 
 #Intro {
     display: flex;
     flex-direction: column;
     width: 30%;
+    margin: 5px 0 5px 0;
 }
 
 @media (max-width: 800px) { /*当Intro块的宽度小于800px时隐藏元素*/
@@ -130,6 +133,8 @@ ul {    /*设置列表样式*/
 
 #posts_display {
     background: transparent;
+    backdrop-filter: none;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -145,12 +150,14 @@ ul {    /*设置列表样式*/
 
 .post_display {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     width: 100%;
     height: 200px;
     border-radius: 10px;
+    margin: 5px 0 5px 0;
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+    backdrop-filter: blur(50px);
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 
         0px 0px 5px -1px gray,
@@ -162,38 +169,37 @@ ul {    /*设置列表样式*/
     transform: scale(1.05);
 }
 
-.post_title {
+.post_message {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: fit-content;
-    height: fit-content;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    width: 30%;
+    height: 90%;
+}
+
+.post_title {
+    display: block;
+    width: 100%;
+    height: 70%;
     font-size: x-large;
 }
 
-.post_message {
+.post_time {
     display: flex;
-    justify-content: left;
-    width: 80%;
-    height: fit-content;
-}
-
-.post_content_block {
-    display: flex;
-    flex-grow: 1;   /*设置元素沾满父元素剩余部分*/
-    margin: 10px 10px 30px 10px;
-    background-color: transparent;
-    width: 80%;
+    justify-content: flex-start;
+    width: 100%;
+    height: 30%;
+    font-size: xx-small;
 }
 
 .post_content {
+    display: inline-block;
+    width: 65%;
+    height: 90%;
     overflow: hidden;   /*文本溢出时，隐藏溢出部分*/
     text-overflow: ellipsis;    /*文本溢出时，显示省略号*/
-    word-wrap: break-word;  /*允许单词中换行*/
     overflow-wrap: break-word;  /*允许溢出时单词换行*/
-    white-space: normal;
-    text-align: left;
+    word-wrap: break-word;
     white-space: normal;
 }
+
