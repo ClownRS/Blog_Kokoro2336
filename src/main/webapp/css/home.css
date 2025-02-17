@@ -13,6 +13,9 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-image: url(../img/fufu.jpg);
     background-size: cover; /*使图片尽可能覆盖整个页面*/
     background-position: top;    /*使图片上对齐*/
@@ -39,7 +42,7 @@ hr {    /*设置下划线样式*/
     border: none;
     width: 90%;
     padding: 1px;
-    background-color: rgb(154, 154, 154);
+    background-color: rgb(169, 99, 239);
     border-radius: 1px;
 }
 
@@ -91,15 +94,21 @@ hr {    /*设置下划线样式*/
 #Intro_and_posts {
     display: flex;
     justify-content: space-evenly;
-    align-items: flex-start;
     width: 100vw;   /*由于display为flex，而子元素全部使用百分比设置宽度，所以当文本溢出时，可能整个intro_and_posts会变宽。因此直接使用vw限定宽度即可。*/
     height: fit-content;
+}
+
+@media(min-width: 1500px) {
+    #Intro_and_posts {
+        width: 1200px;
+    }
 }
 
 #Intro {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    align-items: center;
+    width: 35%;
     margin: 5px 0 5px 0;
 }
 
@@ -109,26 +118,56 @@ hr {    /*设置下划线样式*/
     }
 }
 
-#Intro_word {
-    background-color: transparent;
-    text-align: left;
-    margin: auto;
-    
-}
-
-#Intro_word_title {
+#Intro_title {
     text-align: center;
     font-weight: 600;
     font-size: x-large;
+    color: rgb(119, 34, 199);
 }
 
-#Intro_word_content {
+#Intro_content {
     text-align: left;
-    width: 50vw;
+    width: 80%;
     height: fit-content;
     margin: auto;
-    background-color: rgb(215, 235, 244);
+    color: rgb(42, 16, 67);
     backdrop-filter: blur(80px);
+    display: inline-block;
+    overflow: hidden;   /*文本溢出时，隐藏溢出部分*/
+    text-overflow: ellipsis;    /*文本溢出时，显示省略号*/
+    overflow-wrap: break-word;  /*允许溢出时单词换行*/
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+#avatar {
+    background-image: url(../img/avatar.jpg);
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border-radius: 50px;
+}
+
+.social_media_link {
+    display: block;
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 10px;
+    transition: transform 0.3s ease;
+}
+
+.social_media_link:hover {
+    transform: scale(1.1);
+}
+
+#bilibili {
+    background: linear-gradient(-45deg, rgb(58, 204, 253), rgb(132, 220, 255));
+}
+
+#github {
+    background: linear-gradient(-45deg, rgb(37, 37, 37), rgb(72, 72, 72));
 }
 
 #posts_display {
@@ -139,7 +178,7 @@ hr {    /*设置下划线样式*/
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: space-around;
-    width: 69%;
+    width: 64%;
 }
 
 @media(max-width: 800px) {
@@ -206,9 +245,9 @@ hr {    /*设置下划线样式*/
 }
 
 .post_content {
-    display: inline-block;
     width: 65%;
     height: 90%;
+    display: inline-block;
     overflow: hidden;   /*文本溢出时，隐藏溢出部分*/
     text-overflow: ellipsis;    /*文本溢出时，显示省略号*/
     overflow-wrap: break-word;  /*允许溢出时单词换行*/
