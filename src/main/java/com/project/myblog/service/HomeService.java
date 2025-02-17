@@ -18,7 +18,7 @@ public class HomeService {
         this.homeDao = homeDao;
     }
 
-    public List<Post> getPostList() {
-        return homeDao.getPostList();
+    public List<Post> getFeaturedPostList() {
+        return homeDao.getFeaturedPostList();
     }
 }

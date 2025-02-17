@@ -18,7 +18,7 @@ public class HomeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Post> getPostList() {
-        return jdbcTemplate.query("SELECT * FROM posts", new BeanPropertyRowMapper<>(Post.class));
+    public List<Post> getFeaturedPostList() {
+        return jdbcTemplate.query("SELECT * FROM posts WHERE isFeatured = TRUE", new BeanPropertyRowMapper<>(Post.class));
     }
 }

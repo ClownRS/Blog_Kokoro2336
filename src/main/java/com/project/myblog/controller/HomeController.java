@@ -25,10 +25,11 @@ public class HomeController {
     }
 
     /**
-     * 在页面跳转时负责返回post列表*/
+     * 在页面跳转时负责返回post列表
+     * todo: HomeController返回featured list而不是全部*/
     @RequestMapping("/load")
-    public List<Post> getPostList() throws IOException {
-        return homeService.getPostList();
+    public List<Post> getFeaturedPostList() throws IOException {
+        return homeService.getFeaturedPostList();
     }
 
 }

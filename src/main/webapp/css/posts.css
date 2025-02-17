@@ -1,42 +1,37 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /*宽度和高度包括内边距和边框*/
 }
 
-html {    /*要同时给html和body设置，html中还存在其它占位元素*/
-    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+html {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
 }
 
 body {
-    height: 100%;
     background-image: url(../img/fufu.jpg);
     background-size: cover; /*使图片尽可能覆盖整个页面*/
     background-position: top;    /*使图片上对齐*/
     background-attachment: fixed;   /*使背景固定，不随着滚动条移动*/
     height: fit-content;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
     overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
-}
-
-#nav_block {
-    height: 10vh;
+    width: fit-content;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
     width: 100vw;
-    box-shadow: 0px 1px 10px rgb(36,36, 36);
-}
-
-#nav {
-    border: none;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
 }
 
 ::-webkit-scrollbar {   /*使用伪类选择器实现滚动效果，但隐藏滚动条*/
     display: none;
 }
 
-h3 {
-    text-align: center;
-    overflow: hidden;
+ul {    
+    list-style-type: none;  /*去掉点*/
 }
 
 hr {    /*设置下划线样式*/
@@ -48,10 +43,29 @@ hr {    /*设置下划线样式*/
     border-radius: 1px;
 }
 
-.blocks {
-    display: block;
-    margin: 20px;
-    border-radius: 10px;
+#nav_block {
+    height: 84px;
+    width: 100vw;
+    box-shadow: 0px 1px 10px rgb(36, 36, 36);
+}
+
+#nav {
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+#hello {
+    width: 100vw;
+    height: 30vh;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    font-weight: 900;
+    font-size: xxx-large;
+    background: linear-gradient(-45deg, rgb(13, 0, 255), rgb(253, 85, 127));
+    -webkit-background-clip: text;
+    color: transparent;
     animation: slideInFromBottom 2s ease;
 }
 
@@ -65,58 +79,127 @@ hr {    /*设置下划线样式*/
     }
 }
 
-p {
-    overflow: hidden;
-    text-overflow: ellipsis;
+.blocks {
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    height: fit-content;
+    backdrop-filter: blur(50px);
+    animation: slideInFromBottom 1.5s ease;
+}
+
+#Intro_and_posts {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100vw;   /*由于display为flex，而子元素全部使用百分比设置宽度，所以当文本溢出时，可能整个intro_and_posts会变宽。因此直接使用vw限定宽度即可。*/
+    height: fit-content;
+}
+
+#Intro {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 5px 0 5px 0;
+}
+
+@media (max-width: 800px) { /*当Intro块的宽度小于800px时隐藏元素*/
+    #Intro {
+        display: none;
+    }
+}
+
+#Intro_word {
+    background-color: transparent;
+    text-align: left;
+    margin: auto;
+    
+}
+
+#Intro_word_title {
+    text-align: center;
+    font-weight: 600;
     font-size: x-large;
 }
 
-.post_title {
-    margin: 30px 20px 30px 20px;
-    content: 20px;
-    /* word-wrap: break-word;
-    overflow-wrap: break-word; */
-    font-weight: 450;
+#Intro_word_content {
+    text-align: left;
+    width: 50vw;
+    height: fit-content;
+    margin: auto;
+    background-color: rgb(215, 235, 244);
+    backdrop-filter: blur(80px);
 }
 
-#posts_list {
-    display: inline-block;
-    background-color: rgb(255, 237, 240, 0.7);
-    width: 20%;
-    height: 95%;
-    overflow-x: hidden;
+#posts_display {
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: space-around;
+    width: 69%;
 }
 
-#post_detail_block {
+@media(max-width: 800px) {
+    #posts_display {
+        width: 95%;
+    }
+}
+
+.post_display {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    margin: 5px 0 5px 0;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+    backdrop-filter: blur(50px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 
+        0px 0px 5px -1px gray,
+        0px 0px 3px -2.5px rgb(101, 101, 101),
+        0px 0px 1px -3px rgb(65, 65, 65);
+}
+
+.post_display:hover {
+    transform: scale(1.05);
+}
+
+.post_message {
     display: flex;
     flex-direction: column;
-    align-items: space-evenly;
-    justify-content: center;
-    width: 70%;
-    height: 95%;
-    background-color: rgb(255, 237, 240, 0.7);
-}
-
-#title_detail {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: rgb(255, 237, 240, 0.9);
-    width: 95%;
-    height: fit-content;
-    padding: 10px;
-    text-align: center;
+    width: 30%;
+    height: 90%;
 }
 
-#post_content {
-    display: inline-block;
-    width: 95%;
-    height:auto;
-    margin-top: 0;
-    padding: 10px 5px 10px 5px;
-    background-color: rgb(255, 237, 240, 0.9);
-    overflow-y: scroll;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    text-align: left;
+.post_title {
+    display: block;
+    width: 100%;
+    height: 70%;
+    font-size: x-large;
 }
+
+.post_time {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 30%;
+    font-size: xx-small;
+}
+
+.post_content {
+    display: inline-block;
+    width: 65%;
+    height: 90%;
+    overflow: hidden;   /*文本溢出时，隐藏溢出部分*/
+    text-overflow: ellipsis;    /*文本溢出时，显示省略号*/
+    overflow-wrap: break-word;  /*允许溢出时单词换行*/
+    word-wrap: break-word;
+    white-space: normal;
+}
+

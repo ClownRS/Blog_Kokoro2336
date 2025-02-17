@@ -9,6 +9,15 @@ public class Post {
     private Timestamp postDate;
     private Timestamp lastModified;
     private String content;
+    private Boolean isFeatured;
+
+    public Boolean getFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        isFeatured = featured;
+    }
 
     public int getId() {
         return id;
