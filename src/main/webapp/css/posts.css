@@ -1,0 +1,11 @@
+@import url(home.css);
+
+#post_detail {
+    width: 64%;
+    height: fit-content;
+    backdrop-filter: blur(50px);
+}
+
+#post_detail a {
+
+}

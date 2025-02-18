@@ -8,8 +8,17 @@ public class Post {
     private String title;
     private Timestamp postDate;
     private Timestamp lastModified;
+    private String summary;
     private String content;
     private Boolean isFeatured;
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
     public Boolean getFeatured() {
         return isFeatured;
