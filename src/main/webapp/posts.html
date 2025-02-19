@@ -26,8 +26,8 @@
             <a id="bilibili" class="social_media_link" href="https://space.bilibili.com/515782106"></a>
             <a id="github" class="social_media_link" href="https://github.com/ClownRS"></a>
         </span>
-        <span id="posts_display" class="blocks">
-            <div class="post_display" class="blocks">
+        <span id="posts_display" class="blocks" style="display: flex;">
+            <div class="post_display" class="blocks" style="display: none;">
                 <a></a> <!--此处填写对应文章的地址-->
                 <h3 class="post_title"></h3>
                 <div class="post_message">
@@ -39,17 +39,17 @@
                             </li>
                         </ul>
                     </span>
-                    <span class="post_content">
+                    <span class="post_summary">
                     </span>
                 </div>
             </div>
         </span>
-        <span class="post_detail"> <!--文章详情页-->
-            <a></a> <!--回退到列表的按钮-->
-            <div></div> <!--文章内容-->
+        <span id="post_detail" class="blocks" style="display: none"> <!--文章详情页-->
+            <a>Get Back</a> <!--回退到列表的按钮-->
+            <div id="post_content"></div> <!--文章内容-->
         </span>
     </div>
-    <script src="js/postsFunc.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/postsFunc.js"></script>
 </body>
 </html>

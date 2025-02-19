@@ -1,11 +1,69 @@
 @import url(home.css);
 
+:root {
+    --get_back_logo_display: none;
+    --get_back_animation: none;
+}
+
 #post_detail {
+    display: none;
     width: 64%;
     height: fit-content;
-    backdrop-filter: blur(50px);
+    margin: 5px 0 5px 0;
+}
+
+#get_back {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 50px;
 }
 
 #post_detail a {
+    display: flex;
+    width: fit-content;
+    height: 30px;
+    align-items: center;
+    font-size: large;
+    background: linear-gradient(-45deg, rgb(13, 0, 255), rgb(200, 85, 253));
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 600;
+    animation: var(--get_back_animation);
+}
 
+#post_detail a:hover {
+    --get_back_logo_display: flex;
+    --get_back_animation: slideToRight 0.3s ease;
+}
+
+@keyframes slideToRight {
+    from {
+        transform: translateX(0);
+    } to {
+        transform: translateX(30px);
+    }
+}
+
+#post_detail a::before {
+    display: var(--get_back_logo_display);
+    width: 30px;
+    height: 30px;
+    content: "<";
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 100%;
+    }
+}
+
+#post_content {
+    width: 100%;
+    height: fit-content;
 }

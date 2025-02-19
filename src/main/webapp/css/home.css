@@ -247,7 +247,7 @@ hr {    /*设置下划线样式*/
     font-size: xx-small;
 }
 
-.post_content {
+.post_summary {
     width: 55%;
     height: 100%;
     display: inline-block;
