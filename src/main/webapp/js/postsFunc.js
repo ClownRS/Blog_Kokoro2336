@@ -27,7 +27,7 @@ function getPostContent(id) {
             throw new error("Fail to get post content!");
         }
 
-        return toString(response);
+        return response.text();
     })
     .then(data => {
         showPostContent(data);
@@ -56,7 +56,14 @@ getBackButton.addEventListener("click", () => {
 
 //页面加载完毕时加载postList
 document.addEventListener("DOMContentLoaded", () => {
-    getPostList("/posts/load");
+    let urlParams = new URLSearchParams(window.location.search);
+    console.log(window.location.search);
+    let id = urlParams.get("id");
+    if (id !== null) {
+        read(id);
+    } else {
+        getPostList("/posts/load");
+    }
 })
 
 //点击post_display跳转阅读界面，使用事件委派
@@ -65,9 +72,10 @@ posts_display.addEventListener("click", () => {
 
     for (i = 1; i < postList.length; i++) {
         if (postList[i].contains(event.target)) {
-            let urlParams = new URLSearchParams(postList[i].getElementsByTagName("a")[0].getAttribute("href"));
+            let url = new URL(postList[i].getElementsByTagName("a")[0].getAttribute("href"));   //需要new URL对象才能获取search
+            let urlParams = new URLSearchParams(url.search);    //一定要用search，search才是?后面的参数，URLSearchParams默认接收的是参数而不是整个url
             let id = urlParams.get("id");
-
+            
             read(id);
         }
     }
