@@ -2,6 +2,7 @@
 
 :root {
     --get_back_logo_display: none;
+    --get_back_logo_animation: none;
     --get_back_animation: none;
 }
 
@@ -10,31 +11,47 @@
     width: 64%;
     height: fit-content;
     margin: 5px 0 5px 0;
-}
-
-#get_back {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    height: 50px;
+    flex-direction: column;
+    align-items: center;
 }
 
 #post_detail a {
     display: flex;
-    width: fit-content;
-    height: 30px;
+    justify-content: flex-start;
     align-items: center;
-    font-size: large;
-    background: linear-gradient(-45deg, rgb(13, 0, 255), rgb(200, 85, 253));
+    width: 100%;
+    height: fit-content;
+    background-color: transparent;
+    /* background: linear-gradient(-45deg, rgb(13, 0, 255), rgb(200, 85, 253));
     -webkit-background-clip: text;
-    color: transparent;
+    color: transparent; */
+    font-size: large;
     font-weight: 600;
-    animation: var(--get_back_animation);
+    color: rgb(113, 83, 247);
 }
 
 #post_detail a:hover {
     --get_back_logo_display: flex;
-    --get_back_animation: slideToRight 0.3s ease;
+    --get_back_logo_animation: fadeIn 0.3s ease-in;
+}
+
+#get_back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: fit-content;
+    height: 30px;
+}
+
+#get_back_logo {
+    display: var(--get_back_logo_display);
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    animation: var(--get_back_logo_animation);
 }
 
 @keyframes slideToRight {
@@ -45,20 +62,12 @@
     }
 }
 
-#post_detail a::before {
-    display: var(--get_back_logo_display);
-    width: 30px;
-    height: 30px;
-    content: "<";
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease-in;
-}
-
 @keyframes fadeIn {
     from {
+        scale: 0;
         opacity: 0;
     } to {
+        scale: 100%;
         opacity: 100%;
     }
 }
@@ -66,4 +75,8 @@
 #post_content {
     width: 100%;
     height: fit-content;
+    margin: 10px;
+    overflow-wrap: break-word;  /*允许溢出时单词换行*/
+    word-wrap: break-word;
+    white-space: normal;
 }
