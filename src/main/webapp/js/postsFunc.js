@@ -4,8 +4,14 @@ let posts_display = document.getElementById("posts_display");
 /**
  * 负责点击post_display时跳转到阅读界面。
  * 有可能点击的是主页的post，也有可能是posts页面的post。
+ * @param id:post id
+ * @param title: post title
  */
-function read(id) {
+function read(id, title) {
+    //将hello元素内容更换为post title
+    let hello = document.getElementById("hello");
+    hello.innerHTML = title;
+
     //获取列表长度
     let postList = document.getElementsByClassName("post_display");
 
@@ -41,6 +47,10 @@ function showPostContent(content) {
 }
 
 function getBack() {
+    //将hello元素内容改为Posts
+    let hello = document.getElementById("hello");
+    hello.innerHTML = "Posts";
+
     post_detail.style.display = "none";     //设置post_detail不可见
     posts_display.style.display = "flex";   //设置posts_display可见
 
@@ -59,8 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let urlParams = new URLSearchParams(window.location.search);
     console.log(window.location.search);
     let id = urlParams.get("id");
-    if (id !== null) {
-        read(id);
+    let title = urlParams.get("title");
+    if (id !== null && title !== null) {
+        read(id, title);
     } else {
         getPostList("/posts/load");
     }
@@ -75,8 +86,9 @@ posts_display.addEventListener("click", () => {
             let url = new URL(postList[i].getElementsByTagName("a")[0].getAttribute("href"));   //需要new URL对象才能获取search
             let urlParams = new URLSearchParams(url.search);    //一定要用search，search才是?后面的参数，URLSearchParams默认接收的是参数而不是整个url
             let id = urlParams.get("id");
+            let title = postList[i].getElementsByTagName("h3")[0].innerHTML;
             
-            read(id);
+            read(id, title);
         }
     }
 })

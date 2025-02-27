@@ -9,8 +9,9 @@ posts_display.addEventListener("click", () => {
     for (i = 1; i < postList.length; i++) {
         if (postList[i].contains(event.target)) {
             let url = postList[i].getElementsByTagName("a")[0].getAttribute("href");
+            let title = postList[i].getElementsByTagName("h3")[0].innerHTML;
 
-            window.location.assign(url);
+            window.location.assign(url + "&title=" + title);
         }
     }
 });
