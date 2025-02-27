@@ -150,7 +150,10 @@ hr {    /*设置下划线样式*/
 }
 
 .social_media_link {
-    display: block;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-decoration: none;
     width: 140px;
     height: 40px;
     border-radius: 10px;
@@ -163,11 +166,41 @@ hr {    /*设置下划线样式*/
 }
 
 #bilibili {
-    background: linear-gradient(-45deg, rgb(58, 204, 253), rgb(132, 220, 255));
+    background: linear-gradient(-45deg, rgb(253, 58, 116), rgb(33, 140, 255));
+}
+
+#bilibili span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(245, 245, 245);
+}
+
+#bilibili_logo {
+    display: inline-block;
+    background-image: url(../img/bilibili.png);
+    background-size: cover;
+    width: 25px;
+    height: 25px;
 }
 
 #github {
-    background: linear-gradient(-45deg, rgb(37, 37, 37), rgb(72, 72, 72));
+    background: linear-gradient(-45deg, rgb(37, 37, 37), rgb(122, 122, 122));
+}
+
+#github span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(245, 245, 245);
+}
+
+#github_logo {
+    display: inline-block;
+    background-image: url(../img/github.png);
+    background-size: cover;
+    width: 25px;
+    height: 25px;
 }
 
 #posts_display {
