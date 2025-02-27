@@ -33,6 +33,7 @@
 #post_detail a:hover {
     --get_back_logo_display: flex;
     --get_back_logo_animation: fadeIn 0.3s ease-in;
+    --get_back_animation: slideToRight 0.3s ease-out;
 }
 
 #get_back {
@@ -42,6 +43,7 @@
     padding: 10px;
     width: fit-content;
     height: 30px;
+    animation: var(--get_back_animation);
 }
 
 #get_back_logo {
@@ -54,11 +56,11 @@
     animation: var(--get_back_logo_animation);
 }
 
-@keyframes slideToRight {
+@keyframes slideToRight {   /*箭头logo显示后get_back的位置自动右移了30px，所以应当从-30px开始动画*/
     from {
-        transform: translateX(0);
+        transform: translateX(-30px);
     } to {
-        transform: translateX(30px);
+        transform: translateX(0);
     }
 }
 
@@ -66,9 +68,11 @@
     from {
         scale: 0;
         opacity: 0;
+        rotate: 180deg;
     } to {
         scale: 100%;
         opacity: 100%;
+        rotate: 0deg;
     }
 }
 
