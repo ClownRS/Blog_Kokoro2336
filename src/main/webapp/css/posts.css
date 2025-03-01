@@ -4,6 +4,10 @@
     --get_back_animation: none;
 }
 
+body {
+    margin-top: -22px;  /*body因为神必原因下移，故简单粗暴上移*/
+}
+
 #post_detail {
     display: none;
     width: 64%;
