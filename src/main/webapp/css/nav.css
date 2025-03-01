@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+:root {
+    --nav_button_before_animation: none;
+}
+
+@property --d { /*必须使用@property(css Houdini)注册该变量，使浏览器能够识别并动画化 conic-gradient 的角度变化*/
+    syntax: "<angle>";
+    initial-value: -45deg;
+    inherits: false;
+}
+
 html, body {
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
     overflow-x: hidden; /*设置水平方向溢出时不显示滚动条*/
@@ -28,33 +38,73 @@ iframe {    /*设置内嵌框架*/
     font-size:x-large;
     border: none;
     display:flex;
+    position: relative;
     justify-content: center;    /*调整水平方向排列*/
     align-items: center;    /*调整竖直方向排列*/
-    background-color: transparent;
+    background-color: rgb(255, 217, 234);
     border-radius: 10px;    /*添加圆角*/
     width: 20%;
     height: 60%;
-    box-shadow: 
-        3px 3px 5px -2px rgb(131, 113, 121),
-        2px 1.5px 3px -2px rgb(26, 26, 26),
-        -2px -2px 5px -1px rgb(248, 230, 238),
-        -1px -1px 3px -1px rgb(251, 234, 246)
-        ;
-    transition: transform 0.3s ease, background-color 0.05s ease-out;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.nav_button::before {
+    content: "";
+    inset: -2px;
+    padding: 2px;
+    border-radius: 12px;
+    position: absolute;
+    background: conic-gradient(from var(--d), rgb(176, 79, 148),
+                                            rgb(232, 205, 217), 
+                                            rgb(255, 217, 234), 
+                                            rgb(86, 19, 86),
+                                            rgb(232, 205, 217), 
+                                            rgb(255, 217, 234), 
+                                            rgb(176, 79, 148));
+    mask: linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+    animation: var(--nav_button_before_animation);
+}
+
+.nav_button:hover::before {
+    --nav_button_before_animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    to {
+        --d: 315deg;
+    }
+}
+
+/* .nav_button::after {     //迷雾特效
+    content: "";
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(50px at 100% 100%, rgb(86, 19, 86), rgb(249, 215, 230)),
+                radial-gradient(50px at 0% 0%, rgb(176, 79, 148), rgb(249, 215, 230));
+    filter: blur(20px);
+    z-index: 0;
+} */
+
 .nav_button:hover {
-    background-color: rgb(209, 182, 194);
-    transform: scale(1.05);
+    background-color: rgb(255, 223, 236);
+    transform: scale(1.10);
+    box-shadow: 
+        0px 3px 5px 0px rgb(131, 113, 121),
+        0px 1.5px 3px 0px rgb(26, 26, 26),
+        -2px -2px 5px -1px rgb(248, 230, 238),
+        -1px -1px 3px -1px rgb(251, 234, 246);
 }
 
 .nav_button:active {
     background-color: rgb(255, 227, 233);
-    box-shadow: 
+    /* box-shadow: 
         inset 2px 2px 3px -2px rgb(126, 109, 116),
         inset 1px 1px 2px -2px rgb(27, 25, 26),
         inset -1px -1px 5px -3px rgb(253, 227, 238),
-        inset 0px 0px 3px -3px rgb(255, 216, 234);
+        inset 0px 0px 3px -3px rgb(255, 216, 234); */
 }
 
 #top {
