@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="./css/posts.css">
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">\
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-
     <div id="nav_block">
         <iframe src="nav.html" id="nav"></iframe>   <!--内嵌首页框架-->
     </div>
@@ -56,10 +60,10 @@
                 <span id="get_back_logo">&lt;-</span>
                 <span id="get_back">Get Back</span>
             </a> <!--回退到列表的按钮-->
-            <div id="post_content"></div> 
+            <div id="post_content" class="markdown-body"></div> 
         </span>
     </div>
     <script src="js/utils.js"></script>
-    <script src="js/postsFunc.js"></script>
+    <script src="js/postsFunc.js"></script>   
 </body>
 </html>

@@ -1,6 +1,14 @@
 let post_detail = document.getElementById("post_detail");
 let posts_display = document.getElementById("posts_display");
 
+// 配置 Marked.js
+marked.setOptions({
+    gfm: true, // 启用 GitHub 风格语法
+    tables: true, // 支持表格
+    breaks: false, // 禁用自动换行
+    highlight: (code, lang) => hljs.highlightAuto(code, [lang]).value // 启用代码高亮
+});
+
 /**
  * 负责点击post_display时跳转到阅读界面。
  * 有可能点击的是主页的post，也有可能是posts页面的post。
@@ -29,6 +37,8 @@ function read(id, title) {
 function getPostContent(id) {
     fetch(url + "/posts/read/" + id)
     .then(response => {
+        console.log(response.headers.get("content-type"));
+
         if (!response.ok) {
             throw new error("Fail to get post content!");
         }
@@ -36,7 +46,11 @@ function getPostContent(id) {
         return response.text();
     })
     .then(data => {
-        showPostContent(data);
+        //渲染markdown
+        let renderedContent = marked.parse(data);
+        MathJax.typeset();
+
+        showPostContent(renderedContent);
     })
     .catch(error => console.log(error));
 }
@@ -67,7 +81,6 @@ getBackButton.addEventListener("click", () => {
 //页面加载完毕时加载postList
 document.addEventListener("DOMContentLoaded", () => {
     let urlParams = new URLSearchParams(window.location.search);
-    console.log(window.location.search);
     let id = urlParams.get("id");
     let title = urlParams.get("title");
     if (id !== null && title !== null) {
