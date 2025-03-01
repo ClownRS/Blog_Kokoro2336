@@ -1,13 +1,57 @@
 let post_detail = document.getElementById("post_detail");
 let posts_display = document.getElementById("posts_display");
 
-// 配置 Marked.js
-marked.setOptions({
-    gfm: true, // 启用 GitHub 风格语法
-    tables: true, // 支持表格
-    breaks: false, // 禁用自动换行
-    highlight: (code, lang) => hljs.highlightAuto(code, [lang]).value // 启用代码高亮
-});
+// 自定义marked.js扩展处理数学公式
+const inlineMathExtension = {
+    name: 'inlineMath',
+    level: 'inline',
+    start(src) { return src.indexOf('$'); },
+    tokenizer(src) {
+        const rule = /^\$([^$]+)\$/;
+        const match = rule.exec(src);
+        if (match) {
+            return {
+                type: 'inlineMath',
+                raw: match[0],
+                text: match[1].trim()
+            };
+        }
+    },
+    renderer(token) {
+        try {
+            return katex.renderToString(token.text, { throwOnError: false });
+        } catch (error) {
+            return `<span style="color:red;">${error.message}</span>`;
+        }
+    }
+};
+
+const blockMathExtension = {
+    name: 'blockMath',
+    level: 'block',
+    start(src) { return src.indexOf('$$'); },
+    tokenizer(src) {
+        const rule = /^\$\$([\s\S]+?)\$\$/;
+        const match = rule.exec(src);
+        if (match) {
+            return {
+                type: 'blockMath',
+                raw: match[0],
+                text: match[1].trim()
+            };
+        }
+    },
+    renderer(token) {
+        try {
+            return katex.renderToString(token.text, { displayMode: true, throwOnError: false });
+        } catch (error) {
+            return `<div style="color:red;">${error.message}</div>`;
+        }
+    }
+};
+
+// 应用扩展并配置marked
+marked.use({ extensions: [inlineMathExtension, blockMathExtension] });
 
 /**
  * 负责点击post_display时跳转到阅读界面。
@@ -48,7 +92,6 @@ function getPostContent(id) {
     .then(data => {
         //渲染markdown
         let renderedContent = marked.parse(data);
-        MathJax.typeset();
 
         showPostContent(renderedContent);
     })
