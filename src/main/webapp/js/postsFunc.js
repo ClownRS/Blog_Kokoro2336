@@ -1,6 +1,8 @@
 let post_detail = document.getElementById("post_detail");
 let posts_display = document.getElementById("posts_display");
 
+
+
 // 自定义marked.js扩展处理数学公式
 const inlineMathExtension = {
     name: 'inlineMath',
@@ -50,6 +52,14 @@ const blockMathExtension = {
     }
 };
 
+// 配置 marked.js 使用 highlight.js 进行代码高亮
+marked.setOptions({
+    highlight: function(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : 'javascript';
+        return hljs.highlight(code, { lang: language }).value;
+    },
+});
+
 // 应用扩展并配置marked
 marked.use({ extensions: [inlineMathExtension, blockMathExtension] });
 
@@ -94,6 +104,7 @@ function getPostContent(id) {
         let renderedContent = marked.parse(data);
 
         showPostContent(renderedContent);
+        hljs.highlightAll();    /*自动初始化，不可提早运行，否则hljs找不到<pre><code>则不会插入class="hljs"*/
     })
     .catch(error => console.log(error));
 }

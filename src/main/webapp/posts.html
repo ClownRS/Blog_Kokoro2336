@@ -8,13 +8,26 @@
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">\
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    <link rel="stylesheet" href="./css/tokyo-night-dark.css">
 </head>
+<style>
+    /* 修改代码块背景颜色和文本颜色 */
+    .markdown-body pre {
+        background-color: #3e427b; /* 代码块背景颜色 */
+        color: #9aa5ce;           /* 代码块文本颜色 */
+    }
+
+    /* 确保内联代码块样式一致 */
+    .markdown-body code {
+        background-color: #6368a9; /* 内联代码背景颜色 */
+        color: #becbfd;           /* 内联代码文本颜色 */
+    }
+</style>
 <body>
     <div id="nav_block">
         <iframe src="nav.html" id="nav"></iframe>   <!--内嵌首页框架-->

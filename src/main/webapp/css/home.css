@@ -212,6 +212,7 @@ hr {    /*设置下划线样式*/
     justify-content: space-around;
     align-items: space-around;
     width: 64%;
+    color: #26284a;
 }
 
 @media(max-width: 800px) {
