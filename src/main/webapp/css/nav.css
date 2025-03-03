@@ -133,7 +133,7 @@ iframe {    /*设置内嵌框架*/
     position: relative;
     bottom: 4px;
     left: 5px;
-    text-shadow: 0.5px 0.5px 2px gray;
+    text-shadow: 0.5px 0.5px 2px rgb(98, 42, 141);
 }
 
 #nav {

@@ -244,6 +244,7 @@ hr {    /*设置下划线样式*/
     border-radius: 10px;
     margin: 5px 0 5px 0;
     font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
+    cursor: pointer;
     backdrop-filter: blur(50px);
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 

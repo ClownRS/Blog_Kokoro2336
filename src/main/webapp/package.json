@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "github-markdown-css": "^5.8.1",
-    "highlight.js": "^11.11.1",
-    "marked": "^15.0.7",
-    "mathjax": "^3.2.2"
-  }
-}

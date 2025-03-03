@@ -28,6 +28,7 @@ body {
     -webkit-background-clip: text;
     color: transparent; */
     font-size: large;
+    cursor: pointer;
     font-weight: 600;
     color: rgb(113, 83, 247);
 }
