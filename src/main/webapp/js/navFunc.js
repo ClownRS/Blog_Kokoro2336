@@ -1,4 +1,4 @@
-var url = "http://localhost:8080";
+let url = "http://localhost:8080";
 
 function redirectToHome() {
     //let urlHostname = window.parent.location.hostname;  //在内嵌框架中访问父文档的url

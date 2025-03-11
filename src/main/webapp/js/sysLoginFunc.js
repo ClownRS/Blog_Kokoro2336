@@ -25,9 +25,9 @@ function userLogin(user) {
             //store tokens to localStorage
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-            window.location.assign("http://localhost:8080/sys.html");
+            window.location.assign(url + "/sys.html");
         } else {
-            window.location.assign("http://localhost:8080/sys_login.html?state=" + data.state);
+            window.location.assign(url + "/sys_login.html?state=" + data.state);
         }
     })
     .catch(error => {
