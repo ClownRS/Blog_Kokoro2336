@@ -1,12 +1,12 @@
 package com.project.myblog.controller;
 
 import com.project.myblog.service.SysService;
+import com.project.myblog.utils.JSON;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/sys")
@@ -23,10 +23,4 @@ public class SysController {
         this.sysService = sysService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("username")String username,@RequestParam("password") String password) {
-        int status = sysService.login(username, password);
-
-        return "redirect:/sys_login.html?status=" + status;
-    }
 }

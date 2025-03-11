@@ -21,9 +21,13 @@ public class SysDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Admin> findUser(String username, String password) {
+    public List<Admin> findUserByUnameAndPWD(String username, String passwordHash) {
         return jdbcTemplate.query("select * from admin where username=? and password=?",
-                new Object[]{username, password}, new BeanPropertyRowMapper<Admin>(Admin.class));
+                new Object[]{username, passwordHash}, new BeanPropertyRowMapper<Admin>(Admin.class));
+    }
+
+    public Admin findUserByUname(String username) {
+        return jdbcTemplate.query("select * from admin where username=?", new Object[]{username}, new BeanPropertyRowMapper<Admin>(Admin.class)).get(0);
     }
 
     public boolean userExists(String username) {
@@ -32,4 +36,5 @@ public class SysDao {
 
         return !admins.isEmpty();
     }
+
 }

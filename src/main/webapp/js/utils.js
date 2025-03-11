@@ -1,5 +1,6 @@
 var postList;
-var url = "http://localhost:8080";
+let url = "http://localhost:8080";
+let loginURL = url + "/sys_login.html";
 
 /**
  * 向特定路径发送请求，获取特定形式postList。
@@ -67,4 +68,39 @@ function formatTimestamp(timestamp) {
   const seconds = ('0' + date.getSeconds()).slice(-2);
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+function auth() {
+    const authURL = url + "/auth";
+    //take out the bi-token from localStorage
+    let accessToken = localStorage.getItem("accessToken");
+    let refreshToken = localStorage.getItem("refreshToken");
+    let header = {
+        "Authorization": "Bearer ${accessToken}, Refresh ${refreshToken}",
+    }
+    fetch(authURL, header)
+    .then(Response => {
+        if (Response.ok) {
+            return Response.json();
+        }
+
+        throw new error("HTTP error! status: ${response.status}");
+    })
+    .then(data => {
+        //成功了，更新token
+        let accessToken = data.accessToken;
+        let refreshToken = data.refreshToken;
+        if (accessToken && refreshToken) {
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+        }
+    })
+    .catch(error => {
+        if (error.status === 401) {
+            //重新登录
+            window.location.assign(loginURL + "?state=4");
+        } else {
+            console.log(error);
+        }
+    });
 }

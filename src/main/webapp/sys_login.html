@@ -6,7 +6,6 @@
     <title>Kokoro的博客后台系统</title>
     <link rel="stylesheet" href="./css/sys_login.css">
     <link rel="stylesheet" href="./css/home.css">
-    <script src="./js/sysLoginFunc.js"></script>
 </head>
 <body>
     <div id="nav_block">
@@ -14,11 +13,12 @@
     </div>
     <div id="main">
         <span id="login_title">System Admin Login</span>
-        <form id="login" action="http://localhost:8080/sys/login" method="post">
+        <form id="login">   <!--仅输入数据，数据由js进行处理-->
             <input type="text" name="username" id="username" placeholder="Username" required>
             <input type="password" name="password" id="password" placeholder="Password" required>
             <input type="submit" value="登录" id="login_btn">
         </form>
     </div>
+    <script src="./js/sysLoginFunc.js"></script>
 </body>
 </html>

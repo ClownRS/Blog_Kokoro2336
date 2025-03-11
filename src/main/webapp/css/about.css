@@ -1,0 +1,11 @@
+#about {
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: space-around;
+    width: 64%;
+    color: #26284a;
+}
