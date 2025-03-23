@@ -42,15 +42,26 @@
         </span>
         <span id="sys_post_detail">
             <form id="sys_post_detail_form">
-                <h3></h3>
-                <p id="sys_post_id"></p>
-                <p></p>
-                <input type="checkbox" name="isFeatured" id="isFeatured"></input>
-                <input type="file" name="postFile" id="postFile"></input>
-                <input type="text" placehoder="Please enter the content of the post."></input>
-                <div>
-                    <input type="submit" value="更新" id="update"></input>
-                    <input type="submit" value="删除" id="delete"></input>
+                <h3>title</h3>
+                <p id="sys_post_id">id:</p>
+                
+                <label id="isFeatured_label" for="isFeatured">
+                    <input type="checkbox" name="isFeatured" value="isFeatured?" id="isFeatured"></input>
+                    <p>Featured?</p>
+                </label>
+
+                <label id="file_choose_label" for="postFile">
+                    <input type="file" name="postFile" id="postFile" accept=".md"></input> <!--使用accept属性规定只能接收md文件-->
+                    <span id="file_choose_button">Choose</span>
+                    <p>Choose a file in markdown format</p>
+                </label>
+
+                <!--使用textarea标签来支持长文本的输入-->
+                <textarea type="text" name="summary" id="summary" placeholder="Please enter the summary of the post."></textarea>
+                <textarea type="text" name="content" id="content" placeholder="Please enter the content of the post."></textarea>
+                <div id="sys_post_detail_btns">
+                    <input type="submit" value="UPDATE" id="update"></input>
+                    <input type="submit" value="DELETE" id="delete"></input>
                 </div>
             </form>
         </span>

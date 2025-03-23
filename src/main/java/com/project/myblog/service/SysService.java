@@ -56,7 +56,7 @@ public class SysService {
     }
 
     public String genAccessToken(String username) {
-        long exp = 1000 * 30;
+        long exp = 1000 * 60 * 60 * 24;
         String sub = "access";
         Map<String, String> claims = new HashMap<>();
         claims.put("username", username);
@@ -65,7 +65,7 @@ public class SysService {
     }
 
     public String genRefreshToken(String username) {
-        long exp = 1000 * 60 * 3;
+        long exp = 1000 * 60 * 60 * 24 * 7;
         String sub = "refresh";
         Map<String, String> claims = new HashMap<>();
         claims.put("username", username);

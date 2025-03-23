@@ -8,15 +8,16 @@ function upload(post) {
     fetch(url + "/sys/upload?" + params, {
         method: "POST",
         body: JSON.stringify(post),
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: setHeader(1)
     })
     .then(Response => {
-        if (Response.ok) {
-            return Response.json();
+        if (Response.ok || Response.status == 401) {
+            return Response.json(); //响应码为401时，利用非法json数据来产生异常
+
+        } else {
+            alert("Authorize failed!Please login again!");
+            window.location.assign(url + "/sys_login.html");
         }
-        throw new Error("HTTP error! status: ${response.status}");
     })
     .then(data => {
         let uploadType = data.uploadType;
@@ -24,11 +25,35 @@ function upload(post) {
         if (isSuccess) {
             alert(uploadType + "successful!");
         } else {
-            alert(uploadType + "failed!");
+            alert(uploadType + "failed!Please try again!");
         }
     })
     .catch(error => {
-        console.log(error);
+        fetch(refreshURL, {
+            method: "POST",
+            headers: setHeader(2),
+            body: JSON.stringify(post)
+        })
+        .then(Response => {
+            if (!Response.ok) {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+            return Response.json();
+        })
+        .then(data => {
+            let accessToken = data.accessToken;
+            if (accessToken) {
+                localStorage.setItem("accessToken", accessToken);
+                upload(post);
+            } else {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
     })
 }
 
@@ -39,13 +64,16 @@ function deletePost(id) {
     }
     let urlParams = new URLSearchParams(params);
     fetch(url + "/sys/delete?" + urlParams.toString(), {
-        method: "DELETE"
+        method: "DELETE",
+        headers: setHeader(1)
     })
     .then(Response => {
-        if (Response.ok) {
-            return Response.json();
+        if (Response.ok || Response.status == 401) {
+            return Response.json(); //响应码为401时，利用非法json数据来产生异常
+        } else {
+            alert("Authorize failed!Please login again!");
+            window.location.assign(url + "/sys_login.html");
         }
-        throw new Error("HTTP error! status: ${response.status}");
     })
     .then(data => {
         let uploadType = data.uploadType;
@@ -57,7 +85,30 @@ function deletePost(id) {
         }
     })
     .catch(error => {
-        console.log(error);
+        fetch(refreshURL, {
+            method: "DELETE",
+            headers: setHeader(2)
+        })
+        .then(Response => {
+            if (!Response.ok) {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+            return Response.json();
+        })
+        .then(data => {
+            let accessToken = data.accessToken;
+            if (accessToken) {
+                localStorage.setItem("accessToken", accessToken);
+                deletePost(id);
+            } else {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+        })
+        .catch(error => {  
+            console.log(error);
+        })
     })
 }
 
@@ -82,7 +133,7 @@ function getPostListInSys() {
     })
     .then(data => {
         postList = data;
-        showPostListInSys(postList);
+        showPostListInSys(postList);    //利用了鉴权失败时,postList长度为空来产生异常
     })
     .catch(() => {
         fetch(refreshURL, {
@@ -154,6 +205,8 @@ form.addEventListener("submit", function(event) {
     let formData = new FormData(form);
     let post = Object.fromEntries(formData.entries());
     upload(post);
+    //重新加载post列表
+    getPostListInSys();
 });
 
 // deleteButton.addEventListener("click", function() {
