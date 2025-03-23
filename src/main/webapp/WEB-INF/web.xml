@@ -25,6 +25,12 @@
             <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <!--配置文件上传参数-->
+       <multipart-config>
+           <max-file-size>10485760</max-file-size>  <!--单个最大文件-->
+           <max-request-size>10485760</max-request-size>    <!--请求最大大小-->
+           <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>

@@ -2,6 +2,9 @@ package com.project.myblog.utils;
 
 import java.security.Key;
 import java.util.Base64;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +25,6 @@ public class JWT {
     }
 
     public static String genJWT(String key, Long exp, String sub, Map claims) {
-        Key signedKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         return Jwts.builder()
                 .setSubject(sub)
                 .setIssuedAt(new Date())
@@ -31,15 +33,25 @@ public class JWT {
                 //set claims
                 .claims(claims)
                 //encrypt with hs256 and key
-                .signWith(signedKey)
+                .signWith(SignatureAlgorithm.HS256, key)
                 //gen token
                 .compact();
     }
 
     /**
      * only get the username in the payload.
+     * @return username if exist, else return null.
      * */
     public static String getUsernameInJWT(String token) {
-        return new String(Base64.getDecoder().decode(token.split("\\.")[1]));  //需要new String对象，因为解码直接得到的是byte[]数组
+        String JWTInString = new String(Base64.getDecoder().decode(token.split("\\.")[1]));  //需要new String对象，因为解码直接得到的是byte[]数组
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode payLoad = null;
+        try {
+            payLoad = mapper.readTree(JWTInString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return payLoad.get("username").asText();
     }
 }

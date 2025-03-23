@@ -1,7 +1,6 @@
 package com.project.myblog.interceptor;
 
 import com.project.myblog.service.SysService;
-import com.project.myblog.utils.JSON;
 import com.project.myblog.utils.JWT;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,23 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.PrintWriter;
-
-import static com.project.myblog.utils.JSON.tokensToJSON;
+import java.util.Enumeration;
 
 @Component
 @CrossOrigin(value = "*", allowedHeaders = {"Authorization", "Content-Type"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
-public class AuthInterceptor implements HandlerInterceptor {
+public class SysInterceptor implements HandlerInterceptor {
     /**
-     * 负责拦截/sys/auth的请求
-     * 负责验证refresh token*/
-
+     * 负责拦截/sys路径下除了/auth以外的请求
+     * 负责验证access token*/
     @Autowired
-    SysService sysService;  //直接注入service层对象
+    SysService sysService;
 
     public SysService getSysService() {
         return sysService;
@@ -35,9 +32,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         this.sysService = sysService;
     }
 
-    /**
-     * authorization
-     * */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(HttpMethod.OPTIONS.toString().equals(request.getMethod())){
@@ -45,15 +39,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.contains("Refresh ")) {
-            String refreshToken = authHeader.substring(8);
-            request.setAttribute("refreshToken", refreshToken);
+        if (authHeader != null && authHeader.contains("Bearer")) {
+            String accessToken = authHeader.substring(7);
+            request.setAttribute("accessToken", accessToken);
 
-            if(!sysService.authWithToken(refreshToken)) {
+            if(!sysService.authWithToken(accessToken)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
-
-            return sysService.authWithToken(refreshToken);
+            return sysService.authWithToken(accessToken);
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return false;

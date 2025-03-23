@@ -1,0 +1,71 @@
+#sys_main {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    height: 650px;
+    margin-top: 5vh;
+}
+
+@media(max-width: 800px) {
+    #sys_main {
+        width: 800px;
+    }
+}
+
+@media(min-width: 1000px) {
+    #sys_main {
+        width: 900px;
+    }
+}
+
+#sys_posts_list {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+    overflow-y: scroll; /*设置元素溢出时滚动*/
+}
+
+
+#sys_posts_list ul {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: fit-content;
+    list-style-type: none;
+    overflow-y: scroll;
+    padding: 5px;
+}
+
+#sys_posts_list ul li {
+    display: inline-block;  /*下面的文字溢出设置对Flex无效*/
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    width: 95%;
+    height: 80px;
+    margin: 2px 0 2px 0;
+    padding: 20px;
+    cursor: pointer;
+    line-height: 40px;  /*inline-block仅能通过设置该属性使单行居中*/
+    overflow: hidden;   /*文本溢出时，隐藏溢出部分*/
+    text-overflow: ellipsis;    /*文本溢出时，显示省略号*/
+    white-space: nowrap;    /*文本溢出时，不换行*/
+    font-size: large;
+    color: #26284a;
+    transition: transform 0.3s ease;
+}
+
+#sys_posts_list ul li:hover {
+    transform: scale(1.05);
+}
+
+#sys_post_detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(50px);
+    width: 60%;
+    height: 100%;
+    border-radius: 10px;
+}

@@ -8,7 +8,13 @@ let loginURL = url + "/sys_login.html";
  * route = "posts/load": 加载posts时，获取全部post list
  * @param route: 路由
  */
-function getPostList(route) {
+function getPostList(mode) {
+    let route;
+    if (mode == "Featured") {
+        route = "/home/load";
+    } else if (mode == "All") {
+        route = "/posts/load";
+    } 
 
     fetch(url + route)
     .then(Response => {
@@ -70,13 +76,38 @@ function formatTimestamp(timestamp) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+/**任何/sys下的路由都会在网关鉴权。
+ * 本函数仅作纯粹的鉴权。
+ */
 function auth() {
-    const authURL = url + "/auth";
+    const authURL = url + "/sys/auth";
     //take out the bi-token from localStorage
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
     let header = {
-        "Authorization": "Bearer ${accessToken}, Refresh ${refreshToken}",
+        "Authorization": "Bearer ${accessToken}",
+    }
+    fetch(authURL, header)
+    .then(Response => {
+        if (Response.ok) {
+            return Response.json();
+        } else {
+            authWithRefreshToken();
+        }
+
+        throw new error("HTTP error! status: ${response.status}");
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+function authWithRefreshToken() {
+    const authURL = url + "/sys/auth";
+    //take out the bi-token from localStorage
+    let refreshToken = localStorage.getItem("refreshToken");
+    let header = {
+        "Authorization": "Refresh ${refreshToken}",
     }
     fetch(authURL, header)
     .then(Response => {
@@ -87,20 +118,15 @@ function auth() {
         throw new error("HTTP error! status: ${response.status}");
     })
     .then(data => {
-        //成功了，更新token
-        let accessToken = data.accessToken;
-        let refreshToken = data.refreshToken;
-        if (accessToken && refreshToken) {
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-        }
+        let newAccessToken = data.accessToken;
+        let newRefreshToken = data.refreshToken;
+        //update tokens in localStorage
+        localStorage.setItem("accessToken", newAccessToken);
+        localStorage.setItem("refreshToken", newRefreshToken);
     })
     .catch(error => {
-        if (error.status === 401) {
-            //重新登录
-            window.location.assign(loginURL + "?state=4");
-        } else {
-            console.log(error);
-        }
+        //if refresh failed, redirect to login page
+        alert("Auth failed!Please login again!");
+        window.location.assign(loginURL);
     });
 }

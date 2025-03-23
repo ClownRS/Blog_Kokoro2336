@@ -26,6 +26,23 @@ public class PostsService {
     }
 
     public String getPostContentById(int id) {
-        return postsDao.getPostContentById(id);
+        Post post =  postsDao.getPostById(id);
+        return post.getContent();
+    }
+
+    public Post getPostById(int id) {
+        return postsDao.getPostById(id);
+    }
+
+    public boolean existsPost(Integer id) {
+        return id != null && postsDao.getPostById(id) != null;
+    }
+
+    public Boolean updatePost(Post post) {
+        return postsDao.updatePost(post);
+    }
+
+    public Boolean addPost(Post post) {
+        return postsDao.addPost(post);
     }
 }

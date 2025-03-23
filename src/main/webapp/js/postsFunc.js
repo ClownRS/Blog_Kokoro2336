@@ -123,7 +123,7 @@ function getBack() {
     posts_display.style.display = "flex";   //设置posts_display可见
 
     //需要重新获取列表，如果不重新获取，当post是从主页跳转来的时，getBack()会返回空列表展示
-    getPostList("/posts/load");
+    getPostList("All");
 }
 
 let getBackButton = post_detail.getElementsByTagName("a")[0];
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (id !== null && title !== null) {
         read(id, title);
     } else {
-        getPostList("/posts/load");
+        getPostList("All");
     }
 })
 

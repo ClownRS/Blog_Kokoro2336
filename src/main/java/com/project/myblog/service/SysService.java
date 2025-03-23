@@ -3,10 +3,7 @@ package com.project.myblog.service;
 import com.project.myblog.dao.SysDao;
 import com.project.myblog.utils.JWT;
 import com.project.myblog.utils.SHA256;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +16,7 @@ public class SysService {
     @Autowired
     private SysDao sysDao;
 
-    private static final String key = "kokoro";
+    private static final String key = "kokorogiaogiaogiaogiaogiaogiaogiaogiaogiaogiaogiaogiaogiao";
 
     public SysDao getSysDao() {
         return sysDao;
@@ -45,48 +42,21 @@ public class SysService {
 
     /**
      * auth with token.
-     * @param accessToken
-     * @param refreshToken
-     * @return 1: auth success; 2: the access token has expired but the refresh one doesn't
-     *         3: the long one has expired; 4: invalid token(username doesn't exist, etc.)
+     * @param token
+     * @return true if success, else false.
      */
-    public Integer authWithToken(String accessToken, String refreshToken) {
-        Boolean isAccessTokenExp = false;
-        Boolean isRefreshTokenExp = false;
-        Claims accessTokenClaims = null;
-        Claims refreshTokenClaims = null;
-
-        //check access token
+    public Boolean authWithToken(String token) {
         try {
-            accessTokenClaims = JWT.parseJWT(accessToken, key);
-        } catch (ExpiredJwtException e) {
-            isAccessTokenExp = true;
+            JWT.parseJWT(token, key);
         } catch (Exception e) {
-            return 4;
+            return false;
         }
 
-        try {
-            refreshTokenClaims = JWT.parseJWT(refreshToken, key);
-        } catch (ExpiredJwtException e) {
-            isRefreshTokenExp = true;
-        } catch (Exception e) {
-            return 4;
-        }
-
-        //根据得到的情况返回状态码
-        if (!isAccessTokenExp && !isRefreshTokenExp) {
-            return 1;
-        } else if (isAccessTokenExp && !isRefreshTokenExp) {
-            return 2;
-        } else if (isRefreshTokenExp){
-            return 3;
-        } else {
-            return 4;
-        }
+        return true;
     }
 
     public String genAccessToken(String username) {
-        long exp = 1000 * 60;
+        long exp = 1000 * 30;
         String sub = "access";
         Map<String, String> claims = new HashMap<>();
         claims.put("username", username);
@@ -95,7 +65,7 @@ public class SysService {
     }
 
     public String genRefreshToken(String username) {
-        long exp = 1000 * 60 * 2;
+        long exp = 1000 * 60 * 3;
         String sub = "refresh";
         Map<String, String> claims = new HashMap<>();
         claims.put("username", username);

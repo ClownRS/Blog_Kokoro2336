@@ -27,7 +27,27 @@ public class PostsDao {
                 new BeanPropertyRowMapper<Post>(Post.class));
     }
 
-    public String getPostContentById(int id) {
-        return jdbcTemplate.queryForObject("SELECT content FROM posts WHERE id = ?", new Object[]{id}, String.class);
+    public Post getPostById(int id) {
+        return jdbcTemplate.query("select * from posts where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Post.class)).get(0);
+    }
+
+    public Boolean addPost(Post post) {
+        try {
+            jdbcTemplate.update("insert into posts (title, summary, isFeatured, content) values (?,?,?,?)",
+                    new Object[]{post.getTitle(), post.getSummary(), post.getFeatured(), post.getContent()});
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean updatePost(Post post) {
+        try {
+            jdbcTemplate.update("update posts set title = ?, summary = ? ,isFeatured = ?, content = ?",
+                    new Object[]{post.getTitle(), post.getSummary(), post.getFeatured(), post.getContent()});
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
