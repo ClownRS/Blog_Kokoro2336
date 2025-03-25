@@ -2,6 +2,13 @@ let form = document.getElementById("sys_post_detail_form");
 let deleteButton = document.getElementById("delete");
 let refreshURL = url + "/sys/genAccessToken";
 
+function cleanPostList() {
+    let list = document.getElementsByTagName("li");
+    for (i = list.length - 1; i >= 0; i--) {
+        list[i].remove();
+    }
+}
+
 /**处理post的增加和更新 */
 function upload(post) {
     let params = new URLSearchParams(post).toString();
@@ -15,7 +22,7 @@ function upload(post) {
             return Response.json(); //响应码为401时，利用非法json数据来产生异常
 
         } else {
-            alert("Authorize failed!Please login again!");
+            alert("Upload failed!Please login again!");
             window.location.assign(url + "/sys_login.html");
         }
     })
@@ -32,7 +39,6 @@ function upload(post) {
         fetch(refreshURL, {
             method: "POST",
             headers: setHeader(2),
-            body: JSON.stringify(post)
         })
         .then(Response => {
             if (!Response.ok) {
@@ -71,7 +77,7 @@ function deletePost(id) {
         if (Response.ok || Response.status == 401) {
             return Response.json(); //响应码为401时，利用非法json数据来产生异常
         } else {
-            alert("Authorize failed!Please login again!");
+            alert("Delete failed!Please login again!");
             window.location.assign(url + "/sys_login.html");
         }
     })
@@ -122,12 +128,10 @@ function getPostListInSys() {
         headers: setHeader(1)
     })
     .then(Response => {
-        if (Response.ok) {
+        if (Response.ok || Response.status == 401) {
             return Response.json();
-        } else if (Response.status == 401) {
-            return;
         } else {
-            alert("Authorize failed!Please login again!");
+            alert("Loading failed!Please login again!");
             window.location.assign(url + "/sys_login.html");
         }
     })
@@ -198,6 +202,109 @@ function setHeader(mode) {
     }
 }
 
+/**读取md文件内容 */
+function readFile(element) {
+    let length = element.target.files.length;
+    let file = element.target.files[length - 1];
+    let reader = new FileReader();
+
+    if (!file) {
+        return;
+    }
+
+    let extension = file.name.split(".").pop().toLowerCase();
+    if (extension !== "md") {
+        alert("Not md file!");
+        return;
+    }
+
+    //限制文件大小为5MB.
+    if (file.size > 5 * 1024 * 1024) {
+        alert("File size too large!");
+        return;
+    }
+
+    reader.readAsText(file, "UTF-8");
+
+    reader.addEventListener("load", () => {
+        //将Choose标签改为文件名
+        let file_choose_label_p = document.getElementById("file_choose_label").getElementsByTagName("p")[0];
+        file_choose_label_p.textContent = file.name;
+
+        /**清空原textarea内容 */
+        let content = document.getElementById("content");
+        content.innerText = "";
+
+        content.innerText = reader.result;
+    })
+
+    reader.addEventListener("error", () => {
+        console.log("Reading file error!");
+    });
+}
+
+function readDetails(i) {
+    let route = "/sys/get/"
+    fetch(url + route + i.toString(), {
+        method: "GET",
+        headers: setHeader(1),
+    })
+    .then(Response => {
+        if (Response.ok || Response.status == 401) {
+            return Response.json();
+        } else {
+            alert("Failed to get post details!");
+            window.location.assign(url + "/sys_login.html");
+        }
+    })
+    .then(data => {
+        post = data;
+        showDetails(post);
+    })
+    .catch(error => {
+        fetch(refreshURL, {
+            method: "GET",
+            headers: setHeader(2),
+        })
+        .then(Response => {
+            if (Response.ok || Response.status == 401) {
+                return Response.json();
+            } else {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+        })
+        .then(data => {
+            let accessToken = data.accessToken;
+            if (accessToken) {
+                localStorage.setItem("accessToken", accessToken);
+                readDetails(i);
+            } else {
+                alert("Auth failed!Please login again!");
+                window.location.assign(url + "/sys_login.html");
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    })
+}
+
+function showDetails(post) {
+    let form = document.getElementById("sys_post_detail_form");
+    let title = form.getElementsByTagName("h3")[0];
+    let id = document.getElementById("sys_post_id");
+    let checkbox = document.getElementById("isFeatured");
+    let summary = document.getElementById("summary");
+    let content = document.getElementById("content");
+
+    title.textContent = post.title;
+    id.textContent = "id: " + post.id;
+    checkbox.checked = post.isFeatured;
+    summary.value = post.summary;
+    content.value = post.content;
+}
+
 /**提交表单时拦截默认行为，使用js进行post提交
  */
 form.addEventListener("submit", function(event) {
@@ -205,19 +312,28 @@ form.addEventListener("submit", function(event) {
     let formData = new FormData(form);
     let post = Object.fromEntries(formData.entries());
     upload(post);
+    //清空post列表
+    cleanPostList();
     //重新加载post列表
     getPostListInSys();
 });
 
-// deleteButton.addEventListener("click", function() {
-//     let id = document.getElementById("sys_post_id").innerHTML;
-//     deletePost(id);
-//     //清空post列表
-//     cleanPostList();
-//     //重新加载post列表
-//     getPostList("All");
-// });
-
-document.addEventListener("DOMContentLoaded", () => {
+deleteButton.addEventListener("click", function() {
+    let id = document.getElementById("sys_post_id").innerHTML;
+    deletePost(id);
+    //清空post列表
+    cleanPostList();
+    //重新加载post列表
     getPostListInSys();
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await getPostListInSys();
+    //读取第一项
+    await readDetails(1);
+});
+
+
+document.getElementById("postFile").addEventListener("change", (event) => {
+    readFile(event);
+})

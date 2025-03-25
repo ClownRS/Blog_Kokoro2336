@@ -23,12 +23,10 @@ function userLogin(user) {
         if (accessToken && refreshToken) {
             alert("Login successful!");
             //store tokens to localStorage
-            console.log(localStorage.getItem("accessToken"));
-            console.log(localStorage.getItem("refreshToken"));
+            localStorage.clear();
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-            console.log(localStorage.getItem("accessToken"));
-            console.log(localStorage.getItem("refreshToken"));
+            console.log(localStorage.getItem("accessToken"))
             window.location.assign(url + "/sys.html");
         } else {
             window.location.assign(url + "/sys_login.html?state=" + data.state);
@@ -73,5 +71,4 @@ login.addEventListener("submit", async (event) => {
     let loginData = new FormData(login);
     let user = Object.fromEntries(loginData.entries()); //将FormData对象转换为对象
     userLogin(user);
-    getPostList("All");
 })

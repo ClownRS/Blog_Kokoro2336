@@ -45,4 +45,8 @@ public class PostsService {
     public Boolean addPost(Post post) {
         return postsDao.addPost(post);
     }
+
+    public Boolean deletePostById(int id) {
+        return postsDao.deletePostById(id);
+    }
 }

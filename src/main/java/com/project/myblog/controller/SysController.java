@@ -54,18 +54,10 @@ public class SysController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public String upload(Integer id,String title, Boolean isFeatured, String summary, @RequestParam(value = "file", required = true) MultipartFile file) {
-        //read content from multipart file
-        String content = null;
-        try {
-            content = Reader.readTextFromMultipartFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Post post = new Post(id, title, summary, isFeatured, content);
+    public String upload(@RequestBody Post post) {
         String uploadType = null;
         Boolean isSuccess = null;
-        if (postsService.existsPost(id)) {
+        if (postsService.existsPost(post.getId())) {
             uploadType = "update";
             isSuccess = postsService.updatePost(post);
         } else {
@@ -74,6 +66,22 @@ public class SysController {
         }
 
         return JSON.uploadStateToJSON(uploadType, isSuccess);
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public String delete(@RequestParam Integer id) {
+        String message = null;
+        Boolean isSuccess = null;
+        if (postsService.existsPost(id)) {
+            isSuccess = postsService.deletePostById(id);
+            message = "Delete Success!";
+        } else {
+            isSuccess = false;
+            message = "Post Not Found!";
+        }
+
+        return JSON.deleteStateToJSON(isSuccess, message);
     }
 
     /**
@@ -98,4 +106,11 @@ public class SysController {
     public List<Post> load() {
         return postsService.getFullPostList();
     }
+
+    @RequestMapping("/get/{id}")
+    @ResponseBody
+    public Post getPostById(@PathVariable(value = "id") Integer id) {
+        return postsService.getPostById(id);
+    }
+
 }

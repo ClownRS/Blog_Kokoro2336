@@ -50,4 +50,15 @@ public class PostsDao {
         }
         return true;
     }
+
+    public Boolean deletePostById(int id) {
+        try {
+            jdbcTemplate.update("delete from posts where id=?", new Object[]{id});
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -47,4 +47,12 @@ public class JSON {
         map.put("state", state);
         return JSON.toJSON(map);
     }
+
+    public static String deleteStateToJSON(Boolean isSuccess, String message) {
+        Map<String, String> map = new HashMap<>();
+        map.put("isSuccess", isSuccess.toString());
+        map.put("message", message);
+
+        return JSON.toJSON(map);
+    }
 }
