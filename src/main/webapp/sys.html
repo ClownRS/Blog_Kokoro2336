@@ -6,6 +6,8 @@
     <title>Kokoro的博客后台系统</title>
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/sys.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese">
 </head>
 <body>
     <div id="nav_block">
@@ -18,11 +20,11 @@
         </span>
         <span id="sys_post_detail">
             <form id="sys_post_detail_form">
-                <h3>title</h3>
+                <textarea id="sys_post_title" name="title" placeholder="Please enter the title of the post."></textarea>
                 <p id="sys_post_id">id:</p>
                 
-                <label id="isFeatured_label" for="isFeatured">
-                    <input type="checkbox" name="isFeatured" value="isFeatured?" id="isFeatured"></input>
+                <label id="featured_label" for="featured">
+                    <input type="checkbox" name="featured" value="featured?" id="featured"></input>
                     <p>Featured?</p>
                 </label>
 
@@ -36,7 +38,7 @@
                 <textarea type="text" name="summary" id="summary" placeholder="Please enter the summary of the post."></textarea>
                 <textarea type="text" name="content" id="content" placeholder="Please enter the content of the post."></textarea>
                 <div id="sys_post_detail_btns">
-                    <input type="submit" value="UPLOAD" id="update"></input>
+                    <input type="submit" value="UPLOAD" id="upload"></input>
                     <input type="submit" value="DELETE" id="delete"></input>
                 </div>
             </form>

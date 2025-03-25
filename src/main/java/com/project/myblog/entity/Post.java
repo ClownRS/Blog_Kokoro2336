@@ -1,5 +1,7 @@
 package com.project.myblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ public class Post {
     private Timestamp lastModified;
     private String summary;
     private String content;
-    private Boolean isFeatured;
+    private Boolean featured;
 
     public String getSummary() {
         return summary;
@@ -21,11 +23,11 @@ public class Post {
     }
 
     public Boolean getFeatured() {
-        return isFeatured;
+        return featured;
     }
 
     public void setFeatured(Boolean featured) {
-        isFeatured = featured;
+        this.featured = featured;
     }
 
     public int getId() {
@@ -68,11 +70,11 @@ public class Post {
         this.content = content;
     }
 
-    public Post(Integer id, String title, String summary, Boolean isFeatured, String content) {
+    public Post(Integer id, String title, String summary, Boolean featured, String content) {
         this.id = id;
         this.title = title;
         this.summary = summary;
-        this.isFeatured = isFeatured;
+        this.featured = featured;
         this.content = content;
     }
 

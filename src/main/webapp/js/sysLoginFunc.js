@@ -26,7 +26,6 @@ function userLogin(user) {
             localStorage.clear();
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-            console.log(localStorage.getItem("accessToken"))
             window.location.assign(url + "/sys.html");
         } else {
             window.location.assign(url + "/sys_login.html?state=" + data.state);

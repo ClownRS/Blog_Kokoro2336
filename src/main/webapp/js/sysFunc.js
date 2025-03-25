@@ -1,5 +1,6 @@
 let form = document.getElementById("sys_post_detail_form");
 let deleteButton = document.getElementById("delete");
+let uploadButton = document.getElementById("upload");
 let refreshURL = url + "/sys/genAccessToken";
 
 function cleanPostList() {
@@ -11,10 +12,10 @@ function cleanPostList() {
 
 /**处理post的增加和更新 */
 function upload(post) {
-    let params = new URLSearchParams(post).toString();
-    fetch(url + "/sys/upload?" + params, {
+    let postInJSON = JSON.stringify(post);
+    fetch(url + "/sys/upload", {
         method: "POST",
-        body: JSON.stringify(post),
+        body: postInJSON,
         headers: setHeader(1)
     })
     .then(Response => {
@@ -30,9 +31,9 @@ function upload(post) {
         let uploadType = data.uploadType;
         let isSuccess = data.isSuccess;
         if (isSuccess) {
-            alert(uploadType + "successful!");
+            alert(uploadType + " successful!");
         } else {
-            alert(uploadType + "failed!Please try again!");
+            alert(uploadType + " failed!Please try again!");
         }
     })
     .catch(error => {
@@ -297,39 +298,45 @@ function readDetails(i) {
 
 function showDetails(post) {
     let form = document.getElementById("sys_post_detail_form");
-    let title = form.getElementsByTagName("h3")[0];
+    let title = document.getElementById("sys_post_title");
     let id = document.getElementById("sys_post_id");
-    let checkbox = document.getElementById("isFeatured");
+    let checkbox = document.getElementById("featured");
     let summary = document.getElementById("summary");
     let content = document.getElementById("content");
 
-    title.textContent = post.title;
+    title.value = post.title;
     id.textContent = "id: " + post.id;
-    checkbox.checked = post.isFeatured;
+    checkbox.checked = post.featured;
     summary.value = post.summary;
     content.value = post.content;
 }
 
 /**提交表单时拦截默认行为，使用js进行post提交
  */
-form.addEventListener("submit", function(event) {
+uploadButton.addEventListener("click", async (event) => {
     event.preventDefault();
     let formData = new FormData(form);
     let post = Object.fromEntries(formData.entries());
-    upload(post);
+    //将id属性添加入Post中
+    let id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
+    post.id = id;
+    //将featured属性添加入Post中
+    let featured = document.getElementById("featured");
+    post.featured = featured.checked;
+    await upload(post);
     //清空post列表
-    cleanPostList();
+    await cleanPostList();
     //重新加载post列表
-    getPostListInSys();
+    await getPostListInSys();
 });
 
-deleteButton.addEventListener("click", function() {
+deleteButton.addEventListener("click", async () => {
     let id = document.getElementById("sys_post_id").innerHTML;
-    deletePost(id);
+    await deletePost(id);
     //清空post列表
-    cleanPostList();
+    await cleanPostList();
     //重新加载post列表
-    getPostListInSys();
+    await getPostListInSys();
 });
 
 document.addEventListener("DOMContentLoaded", async () => {

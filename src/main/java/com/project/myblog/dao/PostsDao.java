@@ -23,7 +23,7 @@ public class PostsDao {
     }
 
     public List<Post> getFullPostList() {
-        return jdbcTemplate.query("SELECT id, title, postDate, lastModified, isFeatured, summary FROM posts",
+        return jdbcTemplate.query("SELECT id, title, postDate, lastModified, featured, summary FROM posts",
                 new BeanPropertyRowMapper<Post>(Post.class));
     }
 
@@ -33,7 +33,7 @@ public class PostsDao {
 
     public Boolean addPost(Post post) {
         try {
-            jdbcTemplate.update("insert into posts (title, summary, isFeatured, content) values (?,?,?,?)",
+            jdbcTemplate.update("insert into posts (title, summary, featured, content) values (?,?,?,?)",
                     new Object[]{post.getTitle(), post.getSummary(), post.getFeatured(), post.getContent()});
         } catch (Exception e) {
             return false;
@@ -43,8 +43,8 @@ public class PostsDao {
 
     public Boolean updatePost(Post post) {
         try {
-            jdbcTemplate.update("update posts set title = ?, summary = ? ,isFeatured = ?, content = ?",
-                    new Object[]{post.getTitle(), post.getSummary(), post.getFeatured(), post.getContent()});
+            jdbcTemplate.update("update posts set title = ?, summary = ? ,featured = ?, content = ? where id = ?",
+                    new Object[]{post.getTitle(), post.getSummary(), post.getFeatured(), post.getContent(), post.getId()});
         } catch (Exception e) {
             return false;
         }

@@ -4,6 +4,7 @@ body {
 
 ::placeholder {
     color: #6f72ad;
+    font-family: 'Roboto Mono', 'Noto Sans Simplified Chinese';
 }
 
 #sys_main {
@@ -87,13 +88,6 @@ body {
     height: 100%;
 }
 
-#sys_post_detail_form h3 {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    margin: 0 5px 0 5px;
-}
-
 #sys_post_detail_form input {
     margin: 10px 0 10px 0;
     padding: 5px;
@@ -108,7 +102,7 @@ body {
     margin: 0 5px 0 5px;
 }
 
-#isFeatured_label {
+#featured_label {
     display: flex;
     align-items: center;
     width: 100%;
@@ -117,13 +111,13 @@ body {
     padding: 5px;
 }
 
-#isFeatured {
+#featured {
     display: flex;
     width: 20px;
     height: 20px;
 }
 
-#isFeatured_label p {
+#featured_label p {
     padding: 10px;
 }
 
@@ -180,6 +174,19 @@ body {
     transform: scale(1.05);
 }
 
+#sys_post_title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px !important;
+    margin: 0 5px 0 5px;
+    font-size: x-large;
+}
+
+#sys_post_title::placeholder {
+    font-size: large;
+}
+
 #sys_post_detail_form textarea {
     width: 100%;
     height: 30%;
@@ -207,14 +214,14 @@ body {
     display: block;
     width: 100%;
     height: 100px;
-    font-size: large;
+    font-size: medium;
 }
 
 #content {
     display: block;
     width: 100%;
     height: 100px;
-    font-size: large;
+    font-size: medium;
 }
 
 #sys_post_detail_btns {
@@ -240,7 +247,7 @@ body {
     transform: scale(1.1);
 }
 
-#update {
+#upload {
     display: flex;
     justify-content: center;
     align-items: center;
