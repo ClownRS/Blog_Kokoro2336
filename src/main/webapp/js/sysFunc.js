@@ -137,6 +137,11 @@ function getPostListInSys() {
     })
     .then(data => {
         postList = data;
+        let postIds = new Array();
+        for (i = 0; i < postList.length; i++) {
+            postIds[i] = postList[i].id;   //按顺序存储所有Post的id
+        }
+        localStorage.setItem("postIds", JSON.stringify(postIds));
         showPostListInSys(postList);    //利用了鉴权失败时,postList长度为空来产生异常
     })
     .catch(() => {
@@ -333,7 +338,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     await readDetails(1);
 });
 
-
 document.getElementById("postFile").addEventListener("change", (event) => {
     readFile(event);
+})
+
+let ul = document.getElementsByTagName("ul")[0];
+ul.addEventListener("click", (event) => {
+    let list = document.getElementsByTagName("li");
+    for (i = 0; i < list.length; i++) {
+        if (list[i].contains(event.target)) {
+            let postIds = JSON.parse(localStorage.getItem("postIds"));
+            let postId = postIds[i];
+            readDetails(postId); 
+        }
+    }
 })
