@@ -68,14 +68,18 @@ public class SysController {
         return JSON.uploadStateToJSON(uploadType, isSuccess);
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete/{id}")
     @ResponseBody
-    public String delete(@RequestParam Integer id) {
+    public String delete(@PathVariable(value = "id") Integer id) {
         String message = null;
         Boolean isSuccess = null;
         if (postsService.existsPost(id)) {
             isSuccess = postsService.deletePostById(id);
-            message = "Delete Success!";
+            if (isSuccess) {
+                message = "Delete Success!";
+            } else {
+                message = "Delete Failed!";
+            }
         } else {
             isSuccess = false;
             message = "Post Not Found!";

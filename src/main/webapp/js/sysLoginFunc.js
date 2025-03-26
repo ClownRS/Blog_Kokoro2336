@@ -23,7 +23,6 @@ function userLogin(user) {
         if (accessToken && refreshToken) {
             alert("Login successful!");
             //store tokens to localStorage
-            localStorage.clear();
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             window.location.assign(url + "/sys.html");

@@ -16,7 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Enumeration;
 
 @Component
-@CrossOrigin(value = "*", allowedHeaders = {"Authorization", "Content-Type"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+@CrossOrigin(value = "*", allowedHeaders = {"Authorization", "Content-Type"}, methods = {RequestMethod.GET, RequestMethod.POST,
+                                                                                         RequestMethod.OPTIONS, RequestMethod.PUT, RequestMethod.DELETE})
 public class SysInterceptor implements HandlerInterceptor {
     /**
      * 负责拦截/sys路径下除了/auth以外的请求

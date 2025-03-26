@@ -11,9 +11,9 @@ function cleanPostList() {
 }
 
 /**处理post的增加和更新 */
-function upload(post) {
+async function upload(post) {
     let postInJSON = JSON.stringify(post);
-    fetch(url + "/sys/upload", {
+    await fetch(url + "/sys/upload", {
         method: "POST",
         body: postInJSON,
         headers: setHeader(1)
@@ -62,16 +62,14 @@ function upload(post) {
             console.log(error);
         });
     })
+
+    return;
 }
 
 /**根据id删除post */
-function deletePost(id) {
-    let params = {
-        "id": id
-    }
-    let urlParams = new URLSearchParams(params);
-    fetch(url + "/sys/delete?" + urlParams.toString(), {
-        method: "DELETE",
+async function deletePost(id) {
+    await fetch(url + "/sys/delete/" + id, {
+        method: "POST",
         headers: setHeader(1)
     })
     .then(Response => {
@@ -83,17 +81,13 @@ function deletePost(id) {
         }
     })
     .then(data => {
-        let uploadType = data.uploadType;
+        let message = data.message;
         let isSuccess = data.isSuccess;
-        if (isSuccess) {
-            alert(uploadType + "successful!");
-        } else {
-            alert(uploadType + "failed!");
-        }
+        alert(message);
     })
     .catch(error => {
         fetch(refreshURL, {
-            method: "DELETE",
+            method: "POST",
             headers: setHeader(2)
         })
         .then(Response => {
@@ -117,14 +111,16 @@ function deletePost(id) {
             console.log(error);
         })
     })
+
+    return;
 }
 
 /**
  * 在sys页面加载post列表.
  */
-function getPostListInSys() {
+async function getPostListInSys() {
     let route = "/sys/load";
-    fetch(url + route, {
+    await fetch(url + route, {
         method: "GET",
         headers: setHeader(1)
     })
@@ -171,13 +167,15 @@ function getPostListInSys() {
             console.log(error);
         });
     });
+
+    return;
 }  
 
 function showPostListInSys(postList) {
     let list = document.getElementsByTagName("ul")[0];
     for (i = 0; i < postList.length; i++) {
         let listItem = list.appendChild(document.createElement("li"));
-        listItem.innerHTML = postList[i].title;
+        listItem.textContent = postList[i].title;
     }
 }
 
@@ -325,24 +323,34 @@ uploadButton.addEventListener("click", async (event) => {
     post.featured = featured.checked;
     await upload(post);
     //清空post列表
-    await cleanPostList();
-    //重新加载post列表
-    await getPostListInSys();
+    cleanPostList();
+    
+    loadSys();
 });
 
-deleteButton.addEventListener("click", async () => {
-    let id = document.getElementById("sys_post_id").innerHTML;
-    await deletePost(id);
-    //清空post列表
-    await cleanPostList();
-    //重新加载post列表
+/**将列表加载和post details加载进行封装。 */
+async function loadSys() {
     await getPostListInSys();
+    //读取第一项
+    let list = JSON.parse(localStorage.getItem("postIds"));
+    if (list.length != 0) {
+        readDetails(list[0]);
+    }
+}
+
+deleteButton.addEventListener("click", async () => {
+    if (confirm("Are you sure to delete this post?")) {
+        let id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
+        await deletePost(id)
+        //清空post列表
+        cleanPostList();
+
+        loadSys();
+    }
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await getPostListInSys();
-    //读取第一项
-    await readDetails(1);
+    loadSys();
 });
 
 document.getElementById("postFile").addEventListener("change", (event) => {
