@@ -41,7 +41,7 @@ hr {    /*设置下划线样式*/
     border: none;
     width: 90%;
     padding: 1px;
-    background-color: rgb(138, 106, 132);
+    background-color: #68589e;
     border-radius: 1px;
 }
 
@@ -81,13 +81,33 @@ hr {    /*设置下划线样式*/
     }
 }
 
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50vh);
+    } to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(80vh);
+    } to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .blocks {
     padding: 20px;
     border-radius: 10px;
     width: 90%;
     height: fit-content;
     backdrop-filter: blur(50px);
-    animation: slideInFromBottom 1.5s ease;
+    animation: slideInFromRight 1.5s ease;
 }
 
 #Intro_and_posts {
@@ -109,7 +129,7 @@ hr {    /*设置下划线样式*/
     align-items: center;
     width: 35%;
     margin: 5px 0 5px 0;
-    animation: slideInFromBottom 1.5s ease;
+    animation: slideInFromLeft 1.5s ease;
 }
 
 @media (max-width: 800px) { /*当Intro块的宽度小于800px时隐藏元素*/
@@ -122,7 +142,7 @@ hr {    /*设置下划线样式*/
     text-align: center;
     font-weight: 600;
     font-size: x-large;
-    color: rgb(172, 61, 151);
+    color: #50409f;
 }
 
 #Intro_content {
@@ -130,7 +150,7 @@ hr {    /*设置下划线样式*/
     width: 80%;
     height: fit-content;
     margin: auto;
-    color: rgb(89, 31, 78);
+    color: #322052;
     backdrop-filter: blur(80px);
     display: inline-block;
     overflow: hidden;   /*文本溢出时，隐藏溢出部分*/

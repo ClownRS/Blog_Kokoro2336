@@ -35,9 +35,8 @@ body {
     width: 40%;
     height: 100%;
     overflow-y: scroll; /*设置元素溢出时滚动*/
-    animation: slideInFromBottom 2s ease;
+    animation: slideInFromLeft 1.5s ease;
 }
-
 
 #sys_posts_list ul {
     display: grid;
@@ -100,6 +99,7 @@ body {
     height: 100%;
     padding: 20px;
     border-radius: 10px;
+    animation: slideInFromRight 1.5s ease;
 }
 
 #adding_new_post {
