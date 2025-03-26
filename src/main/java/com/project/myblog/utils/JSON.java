@@ -33,10 +33,11 @@ public class JSON {
         return JSON.toJSON(map);
     }
 
-    public static String uploadStateToJSON(String uploadType, Boolean isSuccess) {
+    public static String uploadStateToJSON(String uploadType, Boolean isSuccess, String message) {
         Map<String, String> map = new HashMap<>();
         map.put("uploadType", uploadType);
         map.put("isSuccess", isSuccess.toString());
+        map.put("message", message);
 
         return JSON.toJSON(map);
     }

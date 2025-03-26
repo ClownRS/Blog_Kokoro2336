@@ -57,15 +57,40 @@ public class SysController {
     public String upload(@RequestBody Post post) {
         String uploadType = null;
         Boolean isSuccess = null;
-        if (post.getId() != 0 && postsService.existsPost(post.getId())) {
+        String message = null;
+        if (validId(post.getId())) {
             uploadType = "update";
-            isSuccess = postsService.updatePost(post);
+            if (postsService.existsPostByTitle(post.getTitle())) {
+                uploadType = "update";
+                isSuccess = false;
+                message = "There is already a post with this title!";
+            } else {
+                isSuccess = postsService.updatePost(post);
+                if (isSuccess) {
+                    message = "Upload successful!";
+                } else {
+                    message = "Upload failed!";
+                }
+            }
+        } else if (postsService.existsPostByTitle(post.getTitle())) {
+            uploadType = "update";
+            isSuccess = false;
+            message = "There is already a post with this title!";
         } else {
             uploadType = "add";
             isSuccess = postsService.addPost(post);
+            if (isSuccess) {
+                message = "Add successful!";
+            } else {
+                message = "Add failed!";
+            }
         }
 
-        return JSON.uploadStateToJSON(uploadType, isSuccess);
+        return JSON.uploadStateToJSON(uploadType, isSuccess, message);
+    }
+
+    private Boolean validId(Integer id) {
+        return !(id == null || id == 0 || !postsService.existsPost(id));
     }
 
     @PostMapping("/delete/{id}")
@@ -73,7 +98,7 @@ public class SysController {
     public String delete(@PathVariable(value = "id") Integer id) {
         String message = null;
         Boolean isSuccess = null;
-        if (id != null && postsService.existsPost(id)) {
+        if (id != null && id != 0 && postsService.existsPost(id)) {
             isSuccess = postsService.deletePostById(id);
             if (isSuccess) {
                 message = "Delete Success!";

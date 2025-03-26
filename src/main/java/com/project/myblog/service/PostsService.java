@@ -35,7 +35,7 @@ public class PostsService {
     }
 
     public boolean existsPost(Integer id) {
-        return id != null && postsDao.getPostById(id) != null;
+        return id != null && id != 0 && postsDao.existsPostById(id);
     }
 
     public Boolean updatePost(Post post) {
@@ -48,5 +48,9 @@ public class PostsService {
 
     public Boolean deletePostById(int id) {
         return postsDao.deletePostById(id);
+    }
+
+    public Boolean existsPostByTitle(String title) {
+        return postsDao.existsPostByTitle(title);
     }
 }

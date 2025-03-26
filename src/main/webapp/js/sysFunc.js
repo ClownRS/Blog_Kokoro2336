@@ -13,6 +13,7 @@ function cleanPostList() {
 
 /**处理post的增加和更新 */
 async function upload(post) {
+    let isSuccess;
     let postInJSON = JSON.stringify(post);
     await fetch(url + "/sys/upload", {
         method: "POST",
@@ -24,18 +25,14 @@ async function upload(post) {
             return Response.json(); //响应码为401时，利用非法json数据来产生异常
 
         } else {
-            alert("Upload failed!Please login again!");
-            window.location.assign(url + "/sys_login.html");
+            alert("Upload failed");
         }
     })
     .then(data => {
         let uploadType = data.uploadType;
-        let isSuccess = data.isSuccess;
-        if (isSuccess) {
-            alert(uploadType + " successful!");
-        } else {
-            alert(uploadType + " failed!Please try again!");
-        }
+        isSuccess = data.isSuccess;
+        let message = data.message;
+        alert(message);
     })
     .catch(error => {
         fetch(refreshURL, {
@@ -64,7 +61,7 @@ async function upload(post) {
         });
     })
 
-    return;
+    return isSuccess;
 }
 
 /**根据id删除post */
@@ -77,8 +74,7 @@ async function deletePost(id) {
         if (Response.ok || Response.status == 401) {
             return Response.json(); //响应码为401时，利用非法json数据来产生异常
         } else {
-            alert("Delete failed!Please login again!");
-            window.location.assign(url + "/sys_login.html");
+            alert("Delete failed!");
         }
     })
     .then(data => {
@@ -129,8 +125,7 @@ async function getPostListInSys() {
         if (Response.ok || Response.status == 401) {
             return Response.json();
         } else {
-            alert("Loading failed!Please login again!");
-            window.location.assign(url + "/sys_login.html");
+            alert("Loading failed!");
         }
     })
     .then(data => {
@@ -209,8 +204,7 @@ function setHeader(mode) {
 
 /**读取md文件内容 */
 function readFile(element) {
-    let length = element.target.files.length;
-    let file = element.target.files[length - 1];
+    let file = element.files[0];
     let reader = new FileReader();
 
     if (!file) {
@@ -238,9 +232,7 @@ function readFile(element) {
 
         /**清空原textarea内容 */
         let content = document.getElementById("content");
-        content.innerText = "";
-
-        content.innerText = reader.result;
+        content.value = reader.result;
     })
 
     reader.addEventListener("error", () => {
@@ -259,7 +251,6 @@ function readDetails(i) {
             return Response.json();
         } else {
             alert("Failed to get post details!");
-            window.location.assign(url + "/sys_login.html");
         }
     })
     .then(data => {
@@ -360,11 +351,13 @@ uploadButton.addEventListener("click", async (event) => {
     let featured = document.getElementById("featured");
     post.featured = featured.checked;
     if (checkPost(post)) {
-        await upload(post);
-        //清空post列表
-        cleanPostList();
-        
-        loadSys();
+        let isSuccess = await upload(post);
+        if (JSON.parse(isSuccess)) {
+            //清空post列表
+            cleanPostList();
+            
+            loadSys();
+        }
     }
 });
 
@@ -432,4 +425,10 @@ addButton.addEventListener("click", () => {
         adding_new_post.style.display = "flex";
         cleanDetails();
     }
+})
+
+let postFile = document.getElementById("postFile");
+postFile.addEventListener("change", (event) => {
+    event.preventDefault();
+    readFile(postFile);
 })

@@ -61,4 +61,36 @@ public class PostsDao {
 
         return true;
     }
+
+    public Boolean existsPostByTitle(String title) {
+        if (title == null) {
+            return false;
+        }
+
+        List<Post> postList;
+        try {
+            postList = jdbcTemplate.query("select * from posts where title=?", new Object[]{title}, new BeanPropertyRowMapper<>(Post.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return !postList.isEmpty();
+    }
+
+    public Boolean existsPostById(int id) {
+        if (id == 0) {
+            return false;
+        }
+
+        List<Post> postList;
+        try {
+            postList = jdbcTemplate.query("select * from posts where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Post.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return !postList.isEmpty();
+    }
 }
