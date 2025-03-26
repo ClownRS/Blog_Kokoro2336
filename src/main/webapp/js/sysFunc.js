@@ -2,6 +2,7 @@ let form = document.getElementById("sys_post_detail_form");
 let deleteButton = document.getElementById("delete");
 let uploadButton = document.getElementById("upload");
 let refreshURL = url + "/sys/genAccessToken";
+let isAdding = false;   //是否处于新增post状态
 
 function cleanPostList() {
     let list = document.getElementsByTagName("li");
@@ -309,6 +310,38 @@ function showDetails(post) {
     content.value = post.content;
 }
 
+function cleanDetails() {
+    let form = document.getElementById("sys_post_detail_form");
+    let title = document.getElementById("sys_post_title");
+    let id = document.getElementById("sys_post_id");
+    let checkbox = document.getElementById("featured");
+    let summary = document.getElementById("summary");
+    let content = document.getElementById("content");
+
+    title.value = null;
+    id.textContent = "id: ";
+    checkbox.checked = false;
+    summary.value = null;
+    content.value = null;
+}
+
+function checkPost(post) {
+    if (!post.title) {
+        alert("Title can't be null!");
+        return false;
+    }
+    if (!post.summary) {
+        alert("Summary can't be null!");
+        return false;
+    }
+    if (!post.content) {
+        alert("Content can't be null!");
+        return false;
+    } 
+
+    return true;
+}
+
 /**提交表单时拦截默认行为，使用js进行post提交
  */
 uploadButton.addEventListener("click", async (event) => {
@@ -316,16 +349,23 @@ uploadButton.addEventListener("click", async (event) => {
     let formData = new FormData(form);
     let post = Object.fromEntries(formData.entries());
     //将id属性添加入Post中
-    let id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
+    let id;
+    if (isAdding) {
+        id = null;
+    } else {
+        id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
+    }
     post.id = id;
     //将featured属性添加入Post中
     let featured = document.getElementById("featured");
     post.featured = featured.checked;
-    await upload(post);
-    //清空post列表
-    cleanPostList();
-    
-    loadSys();
+    if (checkPost(post)) {
+        await upload(post);
+        //清空post列表
+        cleanPostList();
+        
+        loadSys();
+    }
 });
 
 /**将列表加载和post details加载进行封装。 */
@@ -338,18 +378,29 @@ async function loadSys() {
     }
 }
 
-deleteButton.addEventListener("click", async () => {
-    if (confirm("Are you sure to delete this post?")) {
-        let id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
-        await deletePost(id)
-        //清空post列表
-        cleanPostList();
+/**DELETE:
+ * 1. 非新增状态：删除post
+ * 2. 新增状态：清空已有内容
+ */
+deleteButton.addEventListener("click", async (event) => {
+    event.preventDefault(); // 阻止表单的默认提交行为
+    if (!isAdding) {
+        if (confirm("Are you sure to delete this post?")) {
+            let id = document.getElementById("sys_post_id").textContent.split("id: ")[1];
+            await deletePost(id)
+            //清空post列表
+            cleanPostList();
 
-        loadSys();
+            loadSys();
+        }
+    } else {
+        if (confirm("Are you sure to clean all changes?")) {
+            cleanDetails();
+        }
     }
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
     loadSys();
 });
 
@@ -359,6 +410,7 @@ document.getElementById("postFile").addEventListener("change", (event) => {
 
 let ul = document.getElementsByTagName("ul")[0];
 ul.addEventListener("click", (event) => {
+    isAdding = false;   //退出新增post状态
     let list = document.getElementsByTagName("li");
     for (i = 0; i < list.length; i++) {
         if (list[i].contains(event.target)) {
@@ -366,5 +418,13 @@ ul.addEventListener("click", (event) => {
             let postId = postIds[i];
             readDetails(postId); 
         }
+    }
+})
+
+let addButton = document.getElementById("add_new_post");
+addButton.addEventListener("click", () => {
+    if (!isAdding) {
+        isAdding = true;
+        cleanDetails();
     }
 })

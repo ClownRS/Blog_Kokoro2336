@@ -30,7 +30,7 @@ public class Post {
         this.featured = featured;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -30,6 +30,7 @@ body {
 
 #sys_posts_list {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 40%;
     height: 100%;
@@ -38,10 +39,11 @@ body {
 
 
 #sys_posts_list ul {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    justify-items: center;
+    align-items: start;
     width: 95%;
-    height: fit-content;
+    height: 90%;
     list-style-type: none;
     overflow-y: scroll;
     padding: 5px;
@@ -65,6 +67,23 @@ body {
 }
 
 #sys_posts_list ul li:hover {
+    transform: scale(1.05);
+}
+
+#add_new_post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 15%;
+    padding: 5px;
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+#add_new_post:hover {
     transform: scale(1.05);
 }
 

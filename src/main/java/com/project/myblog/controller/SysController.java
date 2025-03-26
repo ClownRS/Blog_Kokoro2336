@@ -57,7 +57,7 @@ public class SysController {
     public String upload(@RequestBody Post post) {
         String uploadType = null;
         Boolean isSuccess = null;
-        if (postsService.existsPost(post.getId())) {
+        if (post.getId() != 0 && postsService.existsPost(post.getId())) {
             uploadType = "update";
             isSuccess = postsService.updatePost(post);
         } else {
@@ -73,7 +73,7 @@ public class SysController {
     public String delete(@PathVariable(value = "id") Integer id) {
         String message = null;
         Boolean isSuccess = null;
-        if (postsService.existsPost(id)) {
+        if (id != null && postsService.existsPost(id)) {
             isSuccess = postsService.deletePostById(id);
             if (isSuccess) {
                 message = "Delete Success!";
