@@ -169,9 +169,15 @@ async function getPostListInSys() {
 
 function showPostListInSys(postList) {
     let list = document.getElementsByTagName("ul")[0];
-    for (i = 0; i < postList.length; i++) {
-        let listItem = list.appendChild(document.createElement("li"));
-        listItem.textContent = postList[i].title;
+    let no_post = list.getElementsByTagName("p")[0];
+    if (postList.length != 0) {
+        no_post.style.display = "none";
+        for (i = 0; i < postList.length; i++) {
+            let listItem = list.appendChild(document.createElement("li"));
+            listItem.textContent = postList[i].title;
+        }
+    } else {
+        no_post.style.display = "flex";
     }
 }
 
