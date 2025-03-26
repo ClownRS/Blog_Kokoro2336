@@ -20,8 +20,12 @@
             <div id="add_new_post">+</div>
         </span>
         <span id="sys_post_detail">
+            <div style="display: none;" id="adding_new_post">Adding New Post</div>
             <form id="sys_post_detail_form">
-                <textarea id="sys_post_title" name="title" placeholder="Please enter the title of the post."></textarea>
+                <label for="sys_post_title" id="sys_post_title_label">
+                    <p>Title:</p>
+                    <textarea id="sys_post_title" name="title" placeholder="Please enter the title of the post."></textarea>
+                </label>
                 <p id="sys_post_id">id:</p>
                 
                 <label id="featured_label" for="featured">

@@ -411,6 +411,9 @@ document.getElementById("postFile").addEventListener("change", (event) => {
 let ul = document.getElementsByTagName("ul")[0];
 ul.addEventListener("click", (event) => {
     isAdding = false;   //退出新增post状态
+    let adding_new_post = document.getElementById("adding_new_post");
+    adding_new_post.style.display = "none";
+
     let list = document.getElementsByTagName("li");
     for (i = 0; i < list.length; i++) {
         if (list[i].contains(event.target)) {
@@ -425,6 +428,8 @@ let addButton = document.getElementById("add_new_post");
 addButton.addEventListener("click", () => {
     if (!isAdding) {
         isAdding = true;
+        let adding_new_post = document.getElementById("adding_new_post");
+        adding_new_post.style.display = "flex";
         cleanDetails();
     }
 })

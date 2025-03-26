@@ -42,6 +42,8 @@ body {
     display: grid;
     justify-items: center;
     align-items: start;
+    grid-template-rows: repeat(auto-fill, 84px);
+    column-gap: 5px;
     width: 95%;
     height: 90%;
     list-style-type: none;
@@ -89,13 +91,21 @@ body {
 
 #sys_post_detail {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     backdrop-filter: blur(50px);
     width: 60%;
     height: 100%;
     padding: 20px;
     border-radius: 10px;
+}
+
+#adding_new_post {
+    display: flex;
+    font-size: large;
+    font-weight: 700;
+    color:#141875;
 }
 
 #sys_post_detail_form {
@@ -193,22 +203,41 @@ body {
     transform: scale(1.05);
 }
 
-#sys_post_title {
+#sys_post_title_label {
     display: flex;
     align-items: center;
     width: 100%;
+    height: fit-content;
+}
+
+#sys_post_title_label p {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 0 10px 0 5px;
+}
+
+#sys_post_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     height: 40px !important;
     margin: 0 5px 0 5px;
-    font-size: x-large;
+    font-size: large;
+    line-height: 30px;
 }
 
 #sys_post_title::placeholder {
+    display: flex;
+    align-items: center;
     font-size: large;
+    white-space: nowrap;
+    line-height: 28px;
 }
 
 #sys_post_detail_form textarea {
     width: 100%;
-    height: 30%;
     margin: 10px 0 10px 0;
     padding: 5px;
     margin: 10px 0 10px 0;
@@ -232,15 +261,15 @@ body {
 #summary {
     display: block;
     width: 100%;
-    height: 100px;
-    font-size: medium;
+    height: 20%;
+    font-size: small;
 }
 
 #content {
     display: block;
     width: 100%;
-    height: 100px;
-    font-size: medium;
+    height: 40%;
+    font-size: small;
 }
 
 #sys_post_detail_btns {
